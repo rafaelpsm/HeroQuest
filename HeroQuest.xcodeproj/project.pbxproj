@@ -14,13 +14,14 @@
 		5363AAC91921CECB007F1371 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5363AAC81921CECB007F1371 /* main.m */; };
 		5363AACD1921CECB007F1371 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5363AACC1921CECB007F1371 /* AppDelegate.m */; };
 		5363AAD01921CECB007F1371 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5363AACE1921CECB007F1371 /* Main.storyboard */; };
-		5363AAD31921CECB007F1371 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5363AAD21921CECB007F1371 /* ViewController.m */; };
 		5363AAD51921CECB007F1371 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5363AAD41921CECB007F1371 /* Images.xcassets */; };
 		5363AADC1921CECB007F1371 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AADB1921CECB007F1371 /* XCTest.framework */; };
 		5363AADD1921CECB007F1371 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABC1921CECB007F1371 /* Foundation.framework */; };
 		5363AADE1921CECB007F1371 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AAC01921CECB007F1371 /* UIKit.framework */; };
 		5363AAE61921CECB007F1371 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5363AAE41921CECB007F1371 /* InfoPlist.strings */; };
 		5363AAE81921CECB007F1371 /* HeroQuestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5363AAE71921CECB007F1371 /* HeroQuestTests.m */; };
+		538BA74019231424007F7C38 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538BA73F19231424007F7C38 /* LoginViewController.m */; };
+		538BA744192317A1007F7C38 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 538BA743192317A1007F7C38 /* Constants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +46,19 @@
 		5363AACB1921CECB007F1371 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5363AACC1921CECB007F1371 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5363AACF1921CECB007F1371 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5363AAD11921CECB007F1371 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5363AAD21921CECB007F1371 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5363AAD41921CECB007F1371 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5363AADA1921CECB007F1371 /* HeroQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeroQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5363AADB1921CECB007F1371 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		5363AAE31921CECB007F1371 /* HeroQuestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HeroQuestTests-Info.plist"; sourceTree = "<group>"; };
 		5363AAE51921CECB007F1371 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5363AAE71921CECB007F1371 /* HeroQuestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeroQuestTests.m; sourceTree = "<group>"; };
+		538BA73E19231424007F7C38 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		538BA73F19231424007F7C38 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		538BA742192317A1007F7C38 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		538BA743192317A1007F7C38 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		538BA74819232390007F7C38 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		538BA74919232390007F7C38 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		538BA74A19232390007F7C38 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +121,8 @@
 				5363AACB1921CECB007F1371 /* AppDelegate.h */,
 				5363AACC1921CECB007F1371 /* AppDelegate.m */,
 				5363AACE1921CECB007F1371 /* Main.storyboard */,
-				5363AAD11921CECB007F1371 /* ViewController.h */,
-				5363AAD21921CECB007F1371 /* ViewController.m */,
+				538BA73D1922E691007F7C38 /* Controllers */,
+				538BA745192317B7007F7C38 /* systemSetting */,
 				5363AAD41921CECB007F1371 /* Images.xcassets */,
 				5363AAC31921CECB007F1371 /* Supporting Files */,
 			);
@@ -150,6 +156,24 @@
 				5363AAE41921CECB007F1371 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		538BA73D1922E691007F7C38 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				538BA73E19231424007F7C38 /* LoginViewController.h */,
+				538BA73F19231424007F7C38 /* LoginViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		538BA745192317B7007F7C38 /* systemSetting */ = {
+			isa = PBXGroup;
+			children = (
+				538BA742192317A1007F7C38 /* Constants.h */,
+				538BA743192317A1007F7C38 /* Constants.m */,
+			);
+			name = systemSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +235,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 5363AAB01921CECB007F1371;
 			productRefGroup = 5363AABA1921CECB007F1371 /* Products */;
@@ -249,9 +274,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5363AAD31921CECB007F1371 /* ViewController.m in Sources */,
 				5363AACD1921CECB007F1371 /* AppDelegate.m in Sources */,
 				5363AAC91921CECB007F1371 /* main.m in Sources */,
+				538BA74019231424007F7C38 /* LoginViewController.m in Sources */,
+				538BA744192317A1007F7C38 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +304,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5363AAC61921CECB007F1371 /* en */,
+				538BA74919232390007F7C38 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -286,6 +313,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5363AACF1921CECB007F1371 /* Base */,
+				538BA74819232390007F7C38 /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -294,6 +322,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5363AAE51921CECB007F1371 /* en */,
+				538BA74A19232390007F7C38 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -456,6 +485,7 @@
 				5363AAED1921CECB007F1371 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5363AAEE1921CECB007F1371 /* Build configuration list for PBXNativeTarget "HeroQuestTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +494,7 @@
 				5363AAF01921CECB007F1371 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

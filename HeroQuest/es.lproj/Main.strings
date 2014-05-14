@@ -1,0 +1,12 @@
+
+/* Class = "IBUITextField"; placeholder = "password"; ObjectID = "4J2-ba-x5O"; */
+"4J2-ba-x5O.placeholder" = "password";
+
+/* Class = "IBUINavigationItem"; title = "Welcome"; ObjectID = "Qg8-Cb-ci9"; */
+"Qg8-Cb-ci9.title" = "Welcome";
+
+/* Class = "IBUITextField"; placeholder = "username"; ObjectID = "Wfw-Dq-NJy"; */
+"Wfw-Dq-NJy.placeholder" = "username";
+
+/* Class = "IBUIButton"; normalTitle = "Log in!"; ObjectID = "Y2T-KE-awY"; */
+"Y2T-KE-awY.normalTitle" = "Log in!";

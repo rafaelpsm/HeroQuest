@@ -1,2 +1,6 @@
 /* Localized versions of Info.plist keys */
 
+//LoginViewController
+"alertview.loginincorrect.title" = "SORRY!!!";
+"alertview.loginincorrect.message" = "Username or Password is incorrect! \nTry it again.";
+"alertview.loginincorrect.button.ok" = "OK";
