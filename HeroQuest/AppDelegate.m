@@ -8,10 +8,24 @@
 
 #import "AppDelegate.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Uncomment to change the background color of navigation bar
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xffbc42)];
+    
+    // Uncomment to change the color of back button
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    // Uncomment to change the font style of the title
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           UIColorFromRGB(0xFFFFFF), NSForegroundColorAttributeName,
+                                                           nil, NSShadowAttributeName,
+                                                           nil, NSFontAttributeName, nil]];
+    
     // Override point for customization after application launch.
     return YES;
 }

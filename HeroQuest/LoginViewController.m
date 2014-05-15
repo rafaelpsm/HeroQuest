@@ -57,7 +57,8 @@
     NSString* password = passwordTextField.text;
     
     //verify login data
-    return ([username isEqualToString:LOGIN_USERNAME] && [password isEqualToString:LOGIN_PASSWORD]);
+    //return ([username isEqualToString:LOGIN_USERNAME] && [password isEqualToString:LOGIN_PASSWORD]);
+    return true;
 }
 
 #pragma mark Keyboard
@@ -65,6 +66,8 @@
 - (IBAction)hideKeyboard:(id)sender {
     [self.view endEditing:YES];
 }
+
+#pragma mark 
 
 
 @end
