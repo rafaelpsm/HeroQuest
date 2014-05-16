@@ -9,7 +9,7 @@
 #import "QuestListViewController.h"
 #import "QuestListTableViewCell.h"
 #import "QuestDetailViewController.h"
-
+#import "QuestSettingsViewController.h"
 
 
 
@@ -76,6 +76,14 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark Actions
+
+- (IBAction)onSettingButtonPressed:(UIBarButtonItem *)sender {
+    QuestSettingsViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:QUEST_SETTINGS_VIEW_CONTROLLER_ID];
+    controller.originViewController = self;
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma mark UITableViewDataSource, UITableViewDelegate

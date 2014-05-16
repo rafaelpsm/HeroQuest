@@ -7,13 +7,17 @@
 //
 
 #import "LoginViewController.h"
+#import "QuestListViewController.h"
 
 @interface LoginViewController ()
 {
     IBOutlet UITextField *usernameTextField;
     IBOutlet UITextField *passwordTextField;
+    IBOutlet UISwitch *rememberUsernameSwitch;
     IBOutlet UIView *myView;
     
+    
+    NSUserDefaults* userDefaults;
 }
 
 @end
@@ -24,8 +28,20 @@
 {
     [super viewDidLoad];
     
+    userDefaults = [NSUserDefaults standardUserDefaults];
+    
     myView.layer.cornerRadius = 15;
     myView.layer.masksToBounds = YES;
+    
+    
+    //Remembering username
+    NSString* usernameRemembered = [userDefaults objectForKey:LOGIN_VIEW_CONTROLLER_REMEMBER_USERNAME];
+    if (usernameRemembered) {
+        usernameTextField.text = usernameRemembered;
+        rememberUsernameSwitch.on = YES;
+    } else {
+        rememberUsernameSwitch.on = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,6 +52,14 @@
 #pragma mark Actions
 
 - (IBAction)onLoginButtonPressed:(UIButton *)sender {
+    
+    //If Remember username is activated we save the username on userdefaults
+    if (rememberUsernameSwitch.on) {
+        [userDefaults setObject:usernameTextField.text forKey:LOGIN_VIEW_CONTROLLER_REMEMBER_USERNAME];
+    } else {
+        [userDefaults removeObjectForKey:LOGIN_VIEW_CONTROLLER_REMEMBER_USERNAME];
+    }
+    [userDefaults synchronize];
     
     //verify login data
     if ([self authenticate]) {
@@ -67,7 +91,13 @@
     [self.view endEditing:YES];
 }
 
-#pragma mark 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    QuestListViewController* vc = segue.destinationViewController;
+    vc.navigationItem.hidesBackButton = YES;
+}
 
 
 @end
