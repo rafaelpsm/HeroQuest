@@ -24,6 +24,17 @@
                                                            nil, NSShadowAttributeName,
                                                            nil, NSFontAttributeName, nil]];
     
+    //Loading the default filter if doesn't exist
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary* filters = [userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
+    if (!filters) {
+        filters = @{QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME: @"",
+                    QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT: @QUEST_ALIGNMENT_NEUTRAL
+                    };
+        [userDefaults setObject:filters forKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
+        [userDefaults synchronize];
+    }
+    
     // Override point for customization after application launch.
     return YES;
 }

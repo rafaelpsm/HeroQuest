@@ -10,4 +10,6 @@
 
 @interface QuestListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+-(void)applyFilters;
+
 @end

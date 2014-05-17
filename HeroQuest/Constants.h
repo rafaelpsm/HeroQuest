@@ -21,8 +21,17 @@
 #define LOGIN_VIEW_CONTROLLER_REMEMBER_USERNAME     @"LoginViewControlerRememberUsername"
 
 #define QUEST_SETTINGS_VIEW_CONTROLLER_ID           @"QuestSettingsViewControllerID"
+#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER       @"QuestSettingsViewControllerFilter"
+#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME  @"QuestSettingsViewControllerFilterName"
+#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT  @"QuestSettingsViewControllerFilterAlignment"
+#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION   @"QuestSettingsViewControllerFilterLocation"
+
+#define QUEST_ALIGNMENT_GOOD  0
+#define QUEST_ALIGNMENT_NEUTRAL  1
+#define QUEST_ALIGNMENT_EVIL  2
 
 #pragma mark Segue
+
 
 #define SEGUE_FROM_LOGIN_TO_QUEST_LIST              @"SegueFromLoginViewControllerToQuestListViewController"
 
@@ -37,9 +46,6 @@
 #define LOCATION @"location"
 
 #define POSTED_BY  @"Posted by: %@"
-#define GOOD  1
-#define NEUTRAL 2
-#define EVIL 3
 
 
 

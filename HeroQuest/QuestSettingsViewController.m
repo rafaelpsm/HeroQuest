@@ -7,13 +7,16 @@
 //
 
 #import "QuestSettingsViewController.h"
+#import "QuestListViewController.h"
 
 @interface QuestSettingsViewController ()
 {
-    
     IBOutlet UIView *topLayerView;
     IBOutlet UINavigationBar *navigationBar;
-    
+    IBOutlet UITextField *nameTextField;
+    IBOutlet UISegmentedControl *alignmentSegmentControl;
+    NSUserDefaults* userDefaults;
+    NSMutableDictionary* filters;
 }
 
 @end
@@ -36,6 +39,13 @@
     // Altero cor da label localizada no topo para ter a mesma cor de fundo do topo
     topLayerView.backgroundColor = UIColorFromRGB(0xffbc42);
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xffbc42)];
+    
+    //Load Filters from user defaults
+    userDefaults = [NSUserDefaults standardUserDefaults];
+    filters = [NSMutableDictionary dictionaryWithDictionary:[userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER]];
+    
+    nameTextField.text = filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME];
+    alignmentSegmentControl.selectedSegmentIndex = [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] integerValue];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,7 +55,17 @@
 }
 
 - (IBAction)onDoneButtonPressed:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:^{}];
+    filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] = nameTextField.text;
+    filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] = [NSNumber numberWithInteger:alignmentSegmentControl.selectedSegmentIndex];
+    [userDefaults setObject:filters forKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
+    [userDefaults synchronize];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.originViewController isKindOfClass:[QuestListViewController class]]) {
+            QuestListViewController* vc = (QuestListViewController*) self.originViewController;
+            [vc applyFilters];
+        }
+    }];
 }
 
 /*
