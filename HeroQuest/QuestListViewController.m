@@ -34,7 +34,7 @@
     userDefaults = [NSUserDefaults standardUserDefaults];
     
     questListTemp = @[
-                  @{TITLE: @"Bandits in the Woods",
+                  @{TITLE: @"Bandits in the Woods - Yes this is a log title",
                     GIVER: @"HotDogg The Bounty Hunter",
                     GIVER_LOCATION: @[@46.8541979, @-96.8285138],
                     ALIGNMENT: @QUEST_ALIGNMENT_GOOD,
@@ -124,7 +124,6 @@
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString* cellID = TABLE_VIEW_CELL_QUEST_LIST_LANDSCAPE;
-    NSLog(@"%d", [[UIDevice currentDevice] orientation]);
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationUnknown) {
         cellID = TABLE_VIEW_CELL_QUEST_LIST_PORTRAIT;
     }
@@ -141,6 +140,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     selectedIndexPath = indexPath;
+    
+    [self performSegueWithIdentifier:SEGUE_FROM_QUEST_LIST_TO_DETAIL sender:self];
 }
 
 

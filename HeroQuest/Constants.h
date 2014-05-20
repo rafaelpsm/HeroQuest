@@ -34,6 +34,7 @@
 
 
 #define SEGUE_FROM_LOGIN_TO_QUEST_LIST              @"SegueFromLoginViewControllerToQuestListViewController"
+#define SEGUE_FROM_QUEST_LIST_TO_DETAIL             @"SegueFromQuestListViewControllerToDetailViewController"
 
 
 
@@ -46,6 +47,7 @@
 #define LOCATION @"location"
 
 #define POSTED_BY  @"Posted by: %@"
+
 
 
 

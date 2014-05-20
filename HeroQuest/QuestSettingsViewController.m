@@ -15,6 +15,8 @@
     IBOutlet UINavigationBar *navigationBar;
     IBOutlet UITextField *nameTextField;
     IBOutlet UISegmentedControl *alignmentSegmentControl;
+    IBOutlet MKMapView *mapView;
+    IBOutlet UILabel *mapInstructionsLabel;
     NSUserDefaults* userDefaults;
     NSMutableDictionary* filters;
 }
@@ -46,12 +48,70 @@
     
     nameTextField.text = filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME];
     alignmentSegmentControl.selectedSegmentIndex = [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] integerValue];
+    
+    [self setUpViewForOrientation];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self setUpViewForOrientation];
+}
+
+- (void)setUpViewForOrientation
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    [self addConstraints];
+}
+
+- (void)addConstraints
+{
+    [self.view removeConstraints:self.view.constraints];
+    
+    NSDictionary* views = NSDictionaryOfVariableBindings(topLayerView, navigationBar, nameTextField, alignmentSegmentControl, mapView, mapInstructionsLabel);
+    NSDictionary* metrics = @{@"spacing": @8, @"vspacing": @65, @"padding": @20};
+    
+    NSArray* constraints;
+    if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationUnknown) {
+        
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[topLayerView]|" options:0 metrics:metrics  views:views];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[navigationBar]|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[nameTextField]-padding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[alignmentSegmentControl]-padding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[mapView]-padding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[mapInstructionsLabel]-padding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-spacing-[nameTextField]-[alignmentSegmentControl]-[mapView(262)]-[mapInstructionsLabel(35)]" options:0 metrics:metrics  views:views]];
+        
+    } else {
+        
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[topLayerView]|" options:0 metrics:metrics  views:views];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[navigationBar]|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[nameTextField]-[mapView(280)]-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[alignmentSegmentControl]-[mapView(280)]-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[mapInstructionsLabel]-[mapView(280)]-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-padding-[nameTextField]-[alignmentSegmentControl]-[mapInstructionsLabel(35)]" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-spacing-[mapView]-spacing-|" options:0 metrics:metrics  views:views]];
+        
+    }
+    [self.view addConstraints:constraints];
 }
 
 - (IBAction)onDoneButtonPressed:(UIBarButtonItem *)sender {
