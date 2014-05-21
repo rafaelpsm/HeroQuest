@@ -142,6 +142,19 @@
                                 </segments>
                                 <color key="tintColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2tw-TN-WzS">
+                                <rect key="frame" x="20" y="478" width="280" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="onMapTypeChange:" destination="Oqo-LK-DOu" eventType="valueChanged" id="fNi-E6-TxA"/>
+                                </connections>
+                            </segmentedControl>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3ta-Zb-N9z">
                                 <rect key="frame" x="20" y="147" width="280" height="280"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -160,6 +173,7 @@
                     <connections>
                         <outlet property="alignmentSegmentControl" destination="UgB-cf-D1C" id="e9i-7D-zZl"/>
                         <outlet property="mapInstructionsLabel" destination="wNs-S3-Lvx" id="CWS-pG-9D3"/>
+                        <outlet property="mapTypeSegmentControl" destination="2tw-TN-WzS" id="KyE-Ku-fzM"/>
                         <outlet property="mapView" destination="3ta-Zb-N9z" id="WAK-jk-kFU"/>
                         <outlet property="nameTextField" destination="DD8-j7-eTB" id="kJx-3D-7a3"/>
                         <outlet property="navigationBar" destination="NwS-YY-qeC" id="2tM-0a-kjR"/>
@@ -205,6 +219,9 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kaq-SS-VbP">
                                 <rect key="frame" x="20" y="286" width="280" height="262"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="wgf-an-VVx" id="wrH-iF-UPm"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -7,8 +7,9 @@
 //
 
 #import "QuestDetailViewController.h"
+#import "QuestPointAnnotation.h"
 
-@interface QuestDetailViewController ()
+@interface QuestDetailViewController () <MKMapViewDelegate>
 {
     IBOutlet UILabel *questTitleLabel;
     IBOutlet UILabel *questAuthorLabel;
@@ -17,6 +18,7 @@
     IBOutlet UIView *portraitView;
     IBOutlet UIView *landscapeView;
     UIView *currentView;
+    NSDictionary* filters;
 }
 
 @end
@@ -26,10 +28,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    filters = [userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
 
     questTitleLabel.text = self.questDetailDictionary[TITLE];
     questAuthorLabel.text = self.questDetailDictionary[GIVER];
     questDescriptionTextView.text = self.questDetailDictionary[DESCRIPTION];
+    
+    [self populateMapView];
     
     [self setUpViewForOrientation];
 }
@@ -86,6 +93,81 @@
         
     }
     [self.view addConstraints:constraints];
+}
+
+- (void)populateMapView
+{
+    CLLocationCoordinate2D taskCoordinate = CLLocationCoordinate2DMake([self.questDetailDictionary[LOCATION][0] doubleValue], [self.questDetailDictionary[LOCATION][1] doubleValue]);
+    CLLocationCoordinate2D giverCoordinate = CLLocationCoordinate2DMake([self.questDetailDictionary[GIVER_LOCATION][0] doubleValue], [self.questDetailDictionary[GIVER_LOCATION][1] doubleValue]);
+    
+    QuestPointAnnotation* annotation = nil;
+    annotation = [QuestPointAnnotation new];
+    annotation.coordinate = giverCoordinate;
+    annotation.title = self.questDetailDictionary[GIVER];
+    annotation.subtitle = self.questDetailDictionary[TITLE];
+    annotation.pointType = GIVER_TYPE;
+    
+    
+    [mapView addAnnotation:annotation];
+    
+    annotation = nil;
+    annotation = [QuestPointAnnotation new];
+    annotation.coordinate = taskCoordinate;
+    annotation.title = self.questDetailDictionary[TITLE];
+    annotation.pointType = QUEST_TYPE;
+    
+    [mapView addAnnotation:annotation];
+    
+    double latitude = ([self.questDetailDictionary[LOCATION][0] doubleValue] + [self.questDetailDictionary[GIVER_LOCATION][0] doubleValue]) / 2;
+    double longitude = ([self.questDetailDictionary[LOCATION][1] doubleValue] + [self.questDetailDictionary[GIVER_LOCATION][1] doubleValue]) / 2;
+    
+    double spanLatitude = ([self.questDetailDictionary[LOCATION][0] doubleValue] - [self.questDetailDictionary[GIVER_LOCATION][0] doubleValue]) * 1.4;
+    double spanLongitude = ([self.questDetailDictionary[LOCATION][1] doubleValue] - [self.questDetailDictionary[GIVER_LOCATION][1] doubleValue]) * 1.4;
+    
+    CLLocationCoordinate2D centerCoordenate = CLLocationCoordinate2DMake(latitude, longitude);
+    MKCoordinateSpan span = MKCoordinateSpanMake(fabs(spanLatitude), fabs(spanLongitude));
+    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordenate, span);
+    
+    mapView.region = region;
+    mapView.mapType = [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_MAP_TYPE] integerValue];
+}
+
+#pragma mark MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView* av = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+    QuestPointAnnotation* questPointAnnotation = annotation;
+    
+    if (questPointAnnotation.pointType == GIVER_TYPE) {
+        av.image = [UIImage imageNamed:@"pin_blue"];
+    } else if (questPointAnnotation.pointType == QUEST_TYPE) {
+        av.image = [UIImage imageNamed:@"pin_green"];
+    }
+    av.canShowCallout = YES;
+    
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [button addTarget:self action:@selector(pushGoogleMapsApp:) forControlEvents:UIControlEventTouchUpInside];
+    av.leftCalloutAccessoryView = button;
+
+    button.tag = questPointAnnotation.pointType;
+    
+    return av;
+}
+
+- (void)pushGoogleMapsApp:(UIButton*)button
+{
+    double latitude, longitude;
+    if (button.tag == GIVER_TYPE) {
+        latitude = [self.questDetailDictionary[GIVER_LOCATION][0] doubleValue];
+        longitude = [self.questDetailDictionary[GIVER_LOCATION][1] doubleValue];
+    } else if (button.tag == QUEST_TYPE) {
+        latitude = [self.questDetailDictionary[LOCATION][0] doubleValue];
+        longitude = [self.questDetailDictionary[LOCATION][1] doubleValue];
+    }
+    NSString *latlong = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+    NSString *url = [NSString stringWithFormat: @"http://maps.apple.com/maps?q=%@", [latlong stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 /*

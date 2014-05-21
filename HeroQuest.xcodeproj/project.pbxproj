@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		533C2B06192C2F0900D81023 /* QuestPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 533C2B05192C2F0900D81023 /* QuestPointAnnotation.m */; };
 		5363AABD1921CECB007F1371 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABC1921CECB007F1371 /* Foundation.framework */; };
 		5363AABF1921CECB007F1371 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABE1921CECB007F1371 /* CoreGraphics.framework */; };
 		5363AAC11921CECB007F1371 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AAC01921CECB007F1371 /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		533C2B04192C2F0900D81023 /* QuestPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestPointAnnotation.h; sourceTree = "<group>"; };
+		533C2B05192C2F0900D81023 /* QuestPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestPointAnnotation.m; sourceTree = "<group>"; };
 		5363AAB91921CECB007F1371 /* HeroQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeroQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5363AABC1921CECB007F1371 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5363AABE1921CECB007F1371 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -100,6 +103,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		533C2B07192C2F1500D81023 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				533C2B04192C2F0900D81023 /* QuestPointAnnotation.h */,
+				533C2B05192C2F0900D81023 /* QuestPointAnnotation.m */,
+			);
+			name = Maps;
+			sourceTree = "<group>";
+		};
 		5363AAB01921CECB007F1371 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +148,7 @@
 			children = (
 				5363AACB1921CECB007F1371 /* AppDelegate.h */,
 				5363AACC1921CECB007F1371 /* AppDelegate.m */,
+				533C2B07192C2F1500D81023 /* Maps */,
 				5363AACE1921CECB007F1371 /* Main.storyboard */,
 				53FBA20019243DE0003838C3 /* TableViewCell */,
 				538BA73D1922E691007F7C38 /* Controllers */,
@@ -314,6 +327,7 @@
 				53FBA203192466D4003838C3 /* QuestDetailViewController.m in Sources */,
 				53FBA1FF19243DDC003838C3 /* QuestListTableViewCell.m in Sources */,
 				538BA744192317A1007F7C38 /* Constants.m in Sources */,
+				533C2B06192C2F0900D81023 /* QuestPointAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

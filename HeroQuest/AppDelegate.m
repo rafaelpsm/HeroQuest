@@ -29,7 +29,8 @@
     NSDictionary* filters = [userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
     if (!filters) {
         filters = @{QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME: @"",
-                    QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT: @QUEST_ALIGNMENT_NEUTRAL
+                    QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT: @QUEST_ALIGNMENT_NEUTRAL,
+                    QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_MAP_TYPE: @QUEST_MAP_TYPE_STANDARD
                     };
         [userDefaults setObject:filters forKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
         [userDefaults synchronize];

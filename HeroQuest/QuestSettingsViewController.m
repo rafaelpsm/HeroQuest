@@ -17,6 +17,7 @@
     IBOutlet UISegmentedControl *alignmentSegmentControl;
     IBOutlet MKMapView *mapView;
     IBOutlet UILabel *mapInstructionsLabel;
+    IBOutlet UISegmentedControl *mapTypeSegmentControl;
     NSUserDefaults* userDefaults;
     NSMutableDictionary* filters;
 }
@@ -48,8 +49,22 @@
     
     nameTextField.text = filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME];
     alignmentSegmentControl.selectedSegmentIndex = [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] integerValue];
+    mapTypeSegmentControl.selectedSegmentIndex = [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_MAP_TYPE] integerValue];
+    [self onMapTypeChange:mapTypeSegmentControl];
+    
+    if (filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER]) {
+        CLLocationCoordinate2D centerCoordenate = CLLocationCoordinate2DMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][1] doubleValue]);
+        MKCoordinateSpan span = MKCoordinateSpanMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][1] doubleValue]);
+        MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordenate, span);
+        
+        mapView.region = region;
+    }
     
     [self setUpViewForOrientation];
+}
+
+- (IBAction)onMapTypeChange:(UISegmentedControl *)sender {
+    mapView.mapType = sender.selectedSegmentIndex;
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +89,7 @@
 {
     [self.view removeConstraints:self.view.constraints];
     
-    NSDictionary* views = NSDictionaryOfVariableBindings(topLayerView, navigationBar, nameTextField, alignmentSegmentControl, mapView, mapInstructionsLabel);
+    NSDictionary* views = NSDictionaryOfVariableBindings(topLayerView, navigationBar, nameTextField, alignmentSegmentControl, mapView, mapInstructionsLabel, mapTypeSegmentControl);
     NSDictionary* metrics = @{@"spacing": @8, @"vspacing": @65, @"padding": @20};
     
     NSArray* constraints;
@@ -92,7 +107,9 @@
         constraints = [constraints arrayByAddingObjectsFromArray:
                        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[mapInstructionsLabel]-padding-|" options:0 metrics:metrics  views:views]];
         constraints = [constraints arrayByAddingObjectsFromArray:
-                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-spacing-[nameTextField]-[alignmentSegmentControl]-[mapView(262)]-[mapInstructionsLabel(35)]" options:0 metrics:metrics  views:views]];
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[mapTypeSegmentControl]-padding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-spacing-[nameTextField]-[alignmentSegmentControl]-[mapView(262)]-[mapInstructionsLabel(35)]-[mapTypeSegmentControl]" options:0 metrics:metrics  views:views]];
         
     } else {
         
@@ -106,7 +123,9 @@
         constraints = [constraints arrayByAddingObjectsFromArray:
                        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[mapInstructionsLabel]-[mapView(280)]-|" options:0 metrics:metrics  views:views]];
         constraints = [constraints arrayByAddingObjectsFromArray:
-                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-padding-[nameTextField]-[alignmentSegmentControl]-[mapInstructionsLabel(35)]" options:0 metrics:metrics  views:views]];
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[mapTypeSegmentControl]-[mapView(280)]-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-padding-[nameTextField]-[alignmentSegmentControl]-[mapInstructionsLabel(35)]-[mapTypeSegmentControl]" options:0 metrics:metrics  views:views]];
         constraints = [constraints arrayByAddingObjectsFromArray:
                        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topLayerView(21)][navigationBar(44)]-spacing-[mapView]-spacing-|" options:0 metrics:metrics  views:views]];
         
@@ -117,7 +136,13 @@
 - (IBAction)onDoneButtonPressed:(UIBarButtonItem *)sender {
     filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] = nameTextField.text;
     filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] = [NSNumber numberWithInteger:alignmentSegmentControl.selectedSegmentIndex];
+    filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_MAP_TYPE] = [NSNumber numberWithInteger:mapTypeSegmentControl.selectedSegmentIndex];
+    
+    filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER] = @[[NSNumber numberWithDouble:mapView.region.center.latitude], [NSNumber numberWithDouble:mapView.region.center.longitude]];
+    filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION] = @[[NSNumber numberWithDouble:mapView.region.span.latitudeDelta], [NSNumber numberWithDouble:mapView.region.span.longitudeDelta]];
+    
     [userDefaults setObject:filters forKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
+    
     [userDefaults synchronize];
     
     [self dismissViewControllerAnimated:YES completion:^{

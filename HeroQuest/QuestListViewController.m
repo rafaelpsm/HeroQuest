@@ -16,7 +16,7 @@
 
 @interface QuestListViewController (){
     NSArray* questListTemp;
-    NSArray* questList;
+    NSMutableArray* questList;
     NSIndexPath* selectedIndexPath;
     IBOutlet UITableView *questTableView;
     UIDeviceOrientation currentOrientation;
@@ -88,6 +88,7 @@
     NSDictionary* filters = [userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
     NSMutableString* predicateFormatString = [NSMutableString stringWithString:@" 1 == 1 "];
     NSMutableArray* parameters = [NSMutableArray new];
+    questList = [NSMutableArray new];
     
     if (filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] && ![filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] isEqualToString:@""]) {
         [predicateFormatString appendString:@" AND %K contains[cd] %@ "];
@@ -101,9 +102,32 @@
     }
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormatString argumentArray:parameters];
-    questList = [questListTemp filteredArrayUsingPredicate:predicate];
+    questListTemp = [questListTemp filteredArrayUsingPredicate:predicate];
+    
+    CLLocationCoordinate2D centerCoordenate = CLLocationCoordinate2DMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][1] doubleValue]);
+    MKCoordinateSpan span = MKCoordinateSpanMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][1] doubleValue]);
+    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordenate, span);
+    
+    for (NSDictionary* dict in questListTemp) {
+        CLLocationCoordinate2D coordinateTask = CLLocationCoordinate2DMake([dict[LOCATION][0] doubleValue], [dict[LOCATION][1] doubleValue]);
+        CLLocationCoordinate2D coordinateGiver = CLLocationCoordinate2DMake([dict[GIVER_LOCATION][0] doubleValue], [dict[GIVER_LOCATION][1] doubleValue]);
+        if([self coordinate:coordinateTask inRegion:region] || [self coordinate:coordinateGiver inRegion:region]){
+            [questList addObject:dict];
+        }
+    }
     
     [questTableView reloadData];
+}
+
+- (BOOL)coordinate:(CLLocationCoordinate2D)coord inRegion:(MKCoordinateRegion)region
+{
+    CLLocationCoordinate2D center = region.center;
+    MKCoordinateSpan span = region.span;
+    
+    BOOL result = YES;
+    result &= cos((center.latitude - coord.latitude)*M_PI/180.0) > cos(span.latitudeDelta/2.0*M_PI/180.0);
+    result &= cos((center.longitude - coord.longitude)*M_PI/180.0) > cos(span.longitudeDelta/2.0*M_PI/180.0);
+    return result;
 }
 
 #pragma mark Actions

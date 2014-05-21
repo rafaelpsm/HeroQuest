@@ -24,11 +24,17 @@
 #define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER       @"QuestSettingsViewControllerFilter"
 #define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME  @"QuestSettingsViewControllerFilterName"
 #define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT  @"QuestSettingsViewControllerFilterAlignment"
-#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION   @"QuestSettingsViewControllerFilterLocation"
+#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER   @"QuestSettingsViewControllerFilterLocationCenter"
+#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION   @"QuestSettingsViewControllerFilterLocationRegion"
+#define QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_MAP_TYPE   @"QuestSettingsViewControllerFilterMapType"
 
 #define QUEST_ALIGNMENT_GOOD  0
 #define QUEST_ALIGNMENT_NEUTRAL  1
 #define QUEST_ALIGNMENT_EVIL  2
+
+#define QUEST_MAP_TYPE_SATELLITE  0
+#define QUEST_MAP_TYPE_HYBRID  1
+#define QUEST_MAP_TYPE_STANDARD  2
 
 #pragma mark Segue
 
