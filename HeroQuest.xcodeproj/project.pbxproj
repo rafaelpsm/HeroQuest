@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5329E235192DA29100F25CD1 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5329E234192DA29100F25CD1 /* SignupViewController.m */; };
 		533C2B06192C2F0900D81023 /* QuestPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 533C2B05192C2F0900D81023 /* QuestPointAnnotation.m */; };
 		5363AABD1921CECB007F1371 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABC1921CECB007F1371 /* Foundation.framework */; };
 		5363AABF1921CECB007F1371 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABE1921CECB007F1371 /* CoreGraphics.framework */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5329E233192DA29100F25CD1 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		5329E234192DA29100F25CD1 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		533C2B04192C2F0900D81023 /* QuestPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestPointAnnotation.h; sourceTree = "<group>"; };
 		533C2B05192C2F0900D81023 /* QuestPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestPointAnnotation.m; sourceTree = "<group>"; };
 		5363AAB91921CECB007F1371 /* HeroQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeroQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +196,8 @@
 			children = (
 				538BA73E19231424007F7C38 /* LoginViewController.h */,
 				538BA73F19231424007F7C38 /* LoginViewController.m */,
+				5329E233192DA29100F25CD1 /* SignupViewController.h */,
+				5329E234192DA29100F25CD1 /* SignupViewController.m */,
 				53FBA1FA19243C92003838C3 /* QuestListViewController.h */,
 				53FBA1FB19243C92003838C3 /* QuestListViewController.m */,
 				53FBA201192466D4003838C3 /* QuestDetailViewController.h */,
@@ -323,6 +328,7 @@
 				5363AAC91921CECB007F1371 /* main.m in Sources */,
 				53B982461925A7DF00057D4B /* QuestSettingsViewController.m in Sources */,
 				538BA74019231424007F7C38 /* LoginViewController.m in Sources */,
+				5329E235192DA29100F25CD1 /* SignupViewController.m in Sources */,
 				53FBA1FC19243C92003838C3 /* QuestListViewController.m in Sources */,
 				53FBA203192466D4003838C3 /* QuestDetailViewController.m in Sources */,
 				53FBA1FF19243DDC003838C3 /* QuestListTableViewCell.m in Sources */,

@@ -33,7 +33,6 @@
     myView.layer.cornerRadius = 15;
     myView.layer.masksToBounds = YES;
     
-    
     //Remembering username
     NSString* usernameRemembered = [userDefaults objectForKey:LOGIN_VIEW_CONTROLLER_REMEMBER_USERNAME];
     if (usernameRemembered) {
@@ -95,8 +94,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    QuestListViewController* vc = segue.destinationViewController;
-    vc.navigationItem.hidesBackButton = YES;
+    if ([segue.destinationViewController isKindOfClass:[QuestListViewController class]]) {
+        QuestListViewController* vc = segue.destinationViewController;
+        vc.navigationItem.hidesBackButton = YES;
+    }
 }
 
 
