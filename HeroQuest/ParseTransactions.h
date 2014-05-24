@@ -1,0 +1,26 @@
+//
+//  ParseTransactions.h
+//  HeroQuest
+//
+//  Created by Rafael Paiva Silva on 5/22/14.
+//  Copyright (c) 2014 Rafael Paiva Silva. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@protocol ParseTransactionsDelegate <NSObject>
+@optional
+- (void)didAutenticatheResponse:(PFUser*)user;
+- (void)didVerifyExistenceUsername:(BOOL)usernameExists;
+- (void)didSignupUser:(BOOL)succeed;
+@end
+
+@interface ParseTransactions : NSObject
+
+@property (nonatomic, weak) id <ParseTransactionsDelegate> delegate;
+
+-(void)authenticateWithUsername:(NSString*)username withPassword:(NSString*)password;
+-(void)verifyExistenceUsername:(NSString*)username;
+-(void)signupUser:(PFUser*)user;
+
+@end

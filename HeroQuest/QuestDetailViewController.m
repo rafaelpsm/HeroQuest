@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-    filters = [userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
+    filters = [userDefaults objectForKey:[NSString stringWithFormat:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER, [userDefaults objectForKey:LOGGED_USER_ID]]];
 
     questTitleLabel.text = self.questDetailDictionary[TITLE];
     questAuthorLabel.text = self.questDetailDictionary[GIVER];

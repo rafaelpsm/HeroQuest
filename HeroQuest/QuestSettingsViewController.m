@@ -45,7 +45,16 @@
     
     //Load Filters from user defaults
     userDefaults = [NSUserDefaults standardUserDefaults];
-    filters = [NSMutableDictionary dictionaryWithDictionary:[userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER]];
+    filters = [NSMutableDictionary dictionaryWithDictionary:[userDefaults objectForKey:[NSString stringWithFormat:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER, [userDefaults objectForKey:LOGGED_USER_ID]]]];
+    
+    if (!filters) {
+        //Loading the default filter if doesn't exist
+        filters = [NSMutableDictionary dictionaryWithDictionary:
+                                @{QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME: @"",
+                                 QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT: @QUEST_ALIGNMENT_NEUTRAL,
+                                 QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_MAP_TYPE: @QUEST_MAP_TYPE_STANDARD
+                                }];
+    }
     
     nameTextField.text = filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME];
     alignmentSegmentControl.selectedSegmentIndex = [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] integerValue];
@@ -141,14 +150,13 @@
     filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER] = @[[NSNumber numberWithDouble:mapView.region.center.latitude], [NSNumber numberWithDouble:mapView.region.center.longitude]];
     filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION] = @[[NSNumber numberWithDouble:mapView.region.span.latitudeDelta], [NSNumber numberWithDouble:mapView.region.span.longitudeDelta]];
     
-    [userDefaults setObject:filters forKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
+    [userDefaults setObject:filters forKey:[NSString stringWithFormat:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER, [userDefaults objectForKey:LOGGED_USER_ID]]];
     
     [userDefaults synchronize];
     
     [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.originViewController isKindOfClass:[QuestListViewController class]]) {
-            QuestListViewController* vc = (QuestListViewController*) self.originViewController;
-            [vc applyFilters];
+        if (self.delegate) {
+            [self.delegate didDismissSettigns];
         }
     }];
 }

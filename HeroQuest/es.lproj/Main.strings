@@ -1,12 +1,105 @@
 
+/* Class = "IBUISegmentedControl"; 2tw-TN-WzS.segmentTitles[0] = "Standard"; ObjectID = "2tw-TN-WzS"; */
+"2tw-TN-WzS.segmentTitles[0]" = "Standard";
+
+/* Class = "IBUISegmentedControl"; 2tw-TN-WzS.segmentTitles[1] = "Satellite"; ObjectID = "2tw-TN-WzS"; */
+"2tw-TN-WzS.segmentTitles[1]" = "Satellite";
+
+/* Class = "IBUISegmentedControl"; 2tw-TN-WzS.segmentTitles[2] = "Hybrid"; ObjectID = "2tw-TN-WzS"; */
+"2tw-TN-WzS.segmentTitles[2]" = "Hybrid";
+
+/* Class = "IBUILabel"; text = "Posted by: Billy Joe Bob"; ObjectID = "3Xp-22-TRU"; */
+"3Xp-22-TRU.text" = "Posted by: Billy Joe Bob";
+
 /* Class = "IBUITextField"; placeholder = "password"; ObjectID = "4J2-ba-x5O"; */
 "4J2-ba-x5O.placeholder" = "password";
 
+/* Class = "IBUIButton"; normalTitle = "Sign up!"; ObjectID = "782-OH-TEh"; */
+"782-OH-TEh.normalTitle" = "Sign up!";
+
+/* Class = "IBUILabel"; text = "Remember username"; ObjectID = "CB6-Tc-VUZ"; */
+"CB6-Tc-VUZ.text" = "Remember username";
+
+/* Class = "IBUITextField"; placeholder = "name"; ObjectID = "DD8-j7-eTB"; */
+"DD8-j7-eTB.placeholder" = "name";
+
+/* Class = "IBUILabel"; text = "Quest Name Goes Here"; ObjectID = "EcI-bp-7hb"; */
+"EcI-bp-7hb.text" = "Quest Name Goes Here";
+
+/* Class = "IBUILabel"; text = "Posted by: Billy Joe Bob"; ObjectID = "FHQ-6x-Ozh"; */
+"FHQ-6x-Ozh.text" = "Posted by: Billy Joe Bob";
+
+/* Class = "IBUINavigationItem"; title = "Sign Up"; ObjectID = "HGr-7H-xON"; */
+"HGr-7H-xON.title" = "Sign Up";
+
+/* Class = "IBUILabel"; text = "Quest Name Goes Here asdfhkl das asd as f asjhdfkj"; ObjectID = "J7F-NJ-4lR"; */
+"J7F-NJ-4lR.text" = "Quest Name Goes Here asdfhkl das asd as f asjhdfkj";
+
+/* Class = "IBUITextField"; placeholder = "name"; ObjectID = "KO8-Dy-XX1"; */
+"KO8-Dy-XX1.placeholder" = "name";
+
+/* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "MgS-sb-aRK"; */
+"MgS-sb-aRK.title" = "Settings";
+
+/* Class = "IBUISegmentedControl"; Q5Y-72-bre.segmentTitles[0] = "Good"; ObjectID = "Q5Y-72-bre"; */
+"Q5Y-72-bre.segmentTitles[0]" = "Good";
+
+/* Class = "IBUISegmentedControl"; Q5Y-72-bre.segmentTitles[1] = "Neutral"; ObjectID = "Q5Y-72-bre"; */
+"Q5Y-72-bre.segmentTitles[1]" = "Neutral";
+
+/* Class = "IBUISegmentedControl"; Q5Y-72-bre.segmentTitles[2] = "Evil"; ObjectID = "Q5Y-72-bre"; */
+"Q5Y-72-bre.segmentTitles[2]" = "Evil";
+
 /* Class = "IBUINavigationItem"; title = "Welcome"; ObjectID = "Qg8-Cb-ci9"; */
 "Qg8-Cb-ci9.title" = "Welcome";
+
+/* Class = "IBUITextField"; placeholder = "username"; ObjectID = "Tdi-5M-6LI"; */
+"Tdi-5M-6LI.placeholder" = "username";
+
+/* Class = "IBUISegmentedControl"; UgB-cf-D1C.segmentTitles[0] = "Good"; ObjectID = "UgB-cf-D1C"; */
+"UgB-cf-D1C.segmentTitles[0]" = "Good";
+
+/* Class = "IBUISegmentedControl"; UgB-cf-D1C.segmentTitles[1] = "Neutral"; ObjectID = "UgB-cf-D1C"; */
+"UgB-cf-D1C.segmentTitles[1]" = "Neutral";
+
+/* Class = "IBUISegmentedControl"; UgB-cf-D1C.segmentTitles[2] = "Evil"; ObjectID = "UgB-cf-D1C"; */
+"UgB-cf-D1C.segmentTitles[2]" = "Evil";
 
 /* Class = "IBUITextField"; placeholder = "username"; ObjectID = "Wfw-Dq-NJy"; */
 "Wfw-Dq-NJy.placeholder" = "username";
 
 /* Class = "IBUIButton"; normalTitle = "Log in!"; ObjectID = "Y2T-KE-awY"; */
 "Y2T-KE-awY.normalTitle" = "Log in!";
+
+/* Class = "IBUILabel"; text = "Quest Name Goes Here"; ObjectID = "Ywu-zO-cd3"; */
+"Ywu-zO-cd3.text" = "Quest Name Goes Here";
+
+/* Class = "IBUILabel"; text = "Reward: 10000 Gold: 10000 XP"; ObjectID = "Z2o-Ru-KS3"; */
+"Z2o-Ru-KS3.text" = "Reward: 10000 Gold: 10000 XP";
+
+/* Class = "IBUIButton"; normalTitle = "Sign up!"; ObjectID = "a1y-Gp-ab0"; */
+"a1y-Gp-ab0.normalTitle" = "Sign up!";
+
+/* Class = "IBUILabel"; text = "Posted by: Billy Joe Bob"; ObjectID = "dGT-X9-CEK"; */
+"dGT-X9-CEK.text" = "Posted by: Billy Joe Bob";
+
+/* Class = "IBUITextField"; placeholder = "password"; ObjectID = "eTG-z4-fG9"; */
+"eTG-z4-fG9.placeholder" = "password";
+
+/* Class = "IBUINavigationItem"; title = "Quests"; ObjectID = "m8H-xA-Goy"; */
+"m8H-xA-Goy.title" = "Quests";
+
+/* Class = "IBUILabel"; text = "Reward: 10000 Gold: 10000 XP"; ObjectID = "riR-00-uIY"; */
+"riR-00-uIY.text" = "Reward: 10000 Gold: 10000 XP";
+
+/* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "sff-wu-HzK"; */
+"sff-wu-HzK.title" = "Settings";
+
+/* Class = "IBUILabel"; text = "*Zoom in/out to choose the area you want to show quests from"; ObjectID = "wNs-S3-Lvx"; */
+"wNs-S3-Lvx.text" = "*Zoom in/out to choose the area you want to show quests from";
+
+/* Class = "IBUINavigationItem"; title = "Detail"; ObjectID = "wuA-uC-rtC"; */
+"wuA-uC-rtC.title" = "Detail";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "xDa-Ae-hMu"; */
+"xDa-Ae-hMu.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";

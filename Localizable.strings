@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  HeroQuest
+
+  Created by Rafael Paiva Silva on 5/23/14.
+  Copyright (c) 2014 Rafael Paiva Silva. All rights reserved.
+*/
+
+//LoginViewController
+"alertview.loginincorrect.title" = "SORRY!!!";
+"alertview.loginincorrect.message" = "Username or Password is incorrect! \nTry it again.";
+"alertview.loginincorrect.button.ok" = "OK";
+
+//SignupViewController
+"field.username" = "User Name";
+"field.password" = "Password";
+"field.name" = "Name";
+"alertview.mandatory.message" = "%@ is mandatory!";
+"alertview.username.existent.message"= "Username existent!!";

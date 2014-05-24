@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "QuestListViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <ParseTransactionsDelegate>
 {
     IBOutlet UITextField *usernameTextField;
     IBOutlet UITextField *passwordTextField;
@@ -18,6 +18,7 @@
     
     
     NSUserDefaults* userDefaults;
+    ParseTransactions* parseTransactions;
 }
 
 @end
@@ -41,6 +42,9 @@
     } else {
         rememberUsernameSwitch.on = NO;
     }
+    
+    parseTransactions = [ParseTransactions new];
+    parseTransactions.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,7 +65,52 @@
     [userDefaults synchronize];
     
     //verify login data
-    if ([self authenticate]) {
+    [self authenticate];
+
+}
+
+- (IBAction)onFBLoginButtonPressed:(id)sender  {
+    // The permissions requested from the user
+    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+    
+    // Login PFUser using Facebook
+    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        
+        if (!user) {
+            if (!error) {
+                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+            } else {
+                NSLog(@"Uh oh. An error occurred: %@", error);
+            }
+        } else {
+            if (user.isNew) {
+                NSLog(@"User with facebook signed up and logged in!");
+            } else {
+                NSLog(@"User with facebook logged in!");
+            }
+            [userDefaults setObject:user.objectId forKey:LOGGED_USER_ID];
+            [userDefaults setObject:user[PARSE_USER_NAME] forKey:LOGGED_USER_NAME];
+            [userDefaults synchronize];
+            [self performSegueWithIdentifier:SEGUE_FROM_LOGIN_TO_QUEST_LIST sender:self];
+            
+        }
+    }];
+}
+
+#pragma mark Helpful Methods
+
+- (void)authenticate {
+    [parseTransactions authenticateWithUsername:usernameTextField.text withPassword:passwordTextField.text];
+}
+
+#pragma mark ParseTransactionsDelegate
+
+- (void)didAutenticatheResponse:(PFUser*)user
+{
+    if (user) {
+        [userDefaults setObject:user.objectId forKey:LOGGED_USER_ID];
+        [userDefaults setObject:user[PARSE_USER_NAME] forKey:LOGGED_USER_NAME];
+        [userDefaults synchronize];
         [self performSegueWithIdentifier:SEGUE_FROM_LOGIN_TO_QUEST_LIST sender:self];
     } else {
         UIAlertView* al = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"alertview.loginincorrect.title", nil)
@@ -73,16 +122,6 @@
     }
 }
 
-#pragma mark Helpful Methods
-
-- (BOOL)authenticate {
-    NSString* username = usernameTextField.text;
-    NSString* password = passwordTextField.text;
-    
-    //verify login data
-    //return ([username isEqualToString:LOGIN_USERNAME] && [password isEqualToString:LOGIN_PASSWORD]);
-    return true;
-}
 
 #pragma mark Keyboard
 

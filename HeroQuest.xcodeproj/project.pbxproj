@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53111146192ECBA800B1D631 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53111145192ECBA800B1D631 /* Parse.framework */; };
+		53111148192ECBD800B1D631 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53111147192ECBD800B1D631 /* AudioToolbox.framework */; };
+		5311114A192ECBE500B1D631 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53111149192ECBE500B1D631 /* CFNetwork.framework */; };
+		5311114C192ECBF900B1D631 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5311114B192ECBF900B1D631 /* CoreLocation.framework */; };
+		5311114E192ECC0A00B1D631 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5311114D192ECC0A00B1D631 /* libz.dylib */; };
+		53111150192ECC1800B1D631 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5311114F192ECC1800B1D631 /* MobileCoreServices.framework */; };
+		53111152192ECC2400B1D631 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53111151192ECC2400B1D631 /* QuartzCore.framework */; };
+		53111154192ECC3100B1D631 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53111153192ECC3100B1D631 /* Security.framework */; };
+		53111156192ECC4500B1D631 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53111155192ECC4500B1D631 /* StoreKit.framework */; };
+		53111158192ECC5400B1D631 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53111157192ECC5400B1D631 /* SystemConfiguration.framework */; };
+		5311115B192EE80E00B1D631 /* ParseTransactions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5311115A192EE80E00B1D631 /* ParseTransactions.m */; };
 		5329E235192DA29100F25CD1 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5329E234192DA29100F25CD1 /* SignupViewController.m */; };
 		533C2B06192C2F0900D81023 /* QuestPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 533C2B05192C2F0900D81023 /* QuestPointAnnotation.m */; };
 		5363AABD1921CECB007F1371 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABC1921CECB007F1371 /* Foundation.framework */; };
 		5363AABF1921CECB007F1371 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABE1921CECB007F1371 /* CoreGraphics.framework */; };
 		5363AAC11921CECB007F1371 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AAC01921CECB007F1371 /* UIKit.framework */; };
-		5363AAC71921CECB007F1371 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5363AAC51921CECB007F1371 /* InfoPlist.strings */; };
 		5363AAC91921CECB007F1371 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5363AAC81921CECB007F1371 /* main.m */; };
 		5363AACD1921CECB007F1371 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5363AACC1921CECB007F1371 /* AppDelegate.m */; };
 		5363AAD01921CECB007F1371 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5363AACE1921CECB007F1371 /* Main.storyboard */; };
@@ -20,7 +30,6 @@
 		5363AADC1921CECB007F1371 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AADB1921CECB007F1371 /* XCTest.framework */; };
 		5363AADD1921CECB007F1371 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AABC1921CECB007F1371 /* Foundation.framework */; };
 		5363AADE1921CECB007F1371 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5363AAC01921CECB007F1371 /* UIKit.framework */; };
-		5363AAE61921CECB007F1371 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5363AAE41921CECB007F1371 /* InfoPlist.strings */; };
 		5363AAE81921CECB007F1371 /* HeroQuestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5363AAE71921CECB007F1371 /* HeroQuestTests.m */; };
 		5381599319290A890053161E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5381599219290A890053161E /* MapKit.framework */; };
 		538BA74019231424007F7C38 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538BA73F19231424007F7C38 /* LoginViewController.m */; };
@@ -29,6 +38,8 @@
 		53FBA1FC19243C92003838C3 /* QuestListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53FBA1FB19243C92003838C3 /* QuestListViewController.m */; };
 		53FBA1FF19243DDC003838C3 /* QuestListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53FBA1FE19243DDC003838C3 /* QuestListTableViewCell.m */; };
 		53FBA203192466D4003838C3 /* QuestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53FBA202192466D4003838C3 /* QuestDetailViewController.m */; };
+		53FC18571930111B005B7B15 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53FC18561930111B005B7B15 /* Localizable.strings */; };
+		53FC18591930475E005B7B15 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53FC18581930475E005B7B15 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +53,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53111145192ECBA800B1D631 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		53111147192ECBD800B1D631 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		53111149192ECBE500B1D631 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5311114B192ECBF900B1D631 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5311114D192ECC0A00B1D631 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		5311114F192ECC1800B1D631 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		53111151192ECC2400B1D631 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		53111153192ECC3100B1D631 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		53111155192ECC4500B1D631 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		53111157192ECC5400B1D631 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		53111159192EE80E00B1D631 /* ParseTransactions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseTransactions.h; sourceTree = "<group>"; };
+		5311115A192EE80E00B1D631 /* ParseTransactions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseTransactions.m; sourceTree = "<group>"; };
 		5329E233192DA29100F25CD1 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		5329E234192DA29100F25CD1 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		533C2B04192C2F0900D81023 /* QuestPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestPointAnnotation.h; sourceTree = "<group>"; };
@@ -51,26 +74,21 @@
 		5363AABE1921CECB007F1371 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		5363AAC01921CECB007F1371 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5363AAC41921CECB007F1371 /* HeroQuest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HeroQuest-Info.plist"; sourceTree = "<group>"; };
-		5363AAC61921CECB007F1371 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5363AAC81921CECB007F1371 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5363AACA1921CECB007F1371 /* HeroQuest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HeroQuest-Prefix.pch"; sourceTree = "<group>"; };
 		5363AACB1921CECB007F1371 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5363AACC1921CECB007F1371 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5363AACF1921CECB007F1371 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5363AAD41921CECB007F1371 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5363AADA1921CECB007F1371 /* HeroQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeroQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5363AADB1921CECB007F1371 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		5363AAE31921CECB007F1371 /* HeroQuestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HeroQuestTests-Info.plist"; sourceTree = "<group>"; };
-		5363AAE51921CECB007F1371 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5363AAE71921CECB007F1371 /* HeroQuestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeroQuestTests.m; sourceTree = "<group>"; };
 		5381599219290A890053161E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		538BA73E19231424007F7C38 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		538BA73F19231424007F7C38 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		538BA742192317A1007F7C38 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		538BA743192317A1007F7C38 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		538BA74819232390007F7C38 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
-		538BA74919232390007F7C38 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		538BA74A19232390007F7C38 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		53AE036A192F1112003D8943 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53B982441925A7DF00057D4B /* QuestSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestSettingsViewController.h; sourceTree = "<group>"; };
 		53B982451925A7DF00057D4B /* QuestSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestSettingsViewController.m; sourceTree = "<group>"; };
 		53FBA1FA19243C92003838C3 /* QuestListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestListViewController.h; sourceTree = "<group>"; };
@@ -79,6 +97,8 @@
 		53FBA1FE19243DDC003838C3 /* QuestListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestListTableViewCell.m; sourceTree = "<group>"; };
 		53FBA201192466D4003838C3 /* QuestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestDetailViewController.h; sourceTree = "<group>"; };
 		53FBA202192466D4003838C3 /* QuestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestDetailViewController.m; sourceTree = "<group>"; };
+		53FC18561930111B005B7B15 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = ../Localizable.strings; sourceTree = "<group>"; };
+		53FC18581930475E005B7B15 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +106,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5381599319290A890053161E /* MapKit.framework in Frameworks */,
+				53111158192ECC5400B1D631 /* SystemConfiguration.framework in Frameworks */,
+				53111156192ECC4500B1D631 /* StoreKit.framework in Frameworks */,
+				53111154192ECC3100B1D631 /* Security.framework in Frameworks */,
+				53111152192ECC2400B1D631 /* QuartzCore.framework in Frameworks */,
+				53111150192ECC1800B1D631 /* MobileCoreServices.framework in Frameworks */,
+				5311114E192ECC0A00B1D631 /* libz.dylib in Frameworks */,
+				5311114C192ECBF900B1D631 /* CoreLocation.framework in Frameworks */,
 				5363AABF1921CECB007F1371 /* CoreGraphics.framework in Frameworks */,
+				5311114A192ECBE500B1D631 /* CFNetwork.framework in Frameworks */,
+				53111148192ECBD800B1D631 /* AudioToolbox.framework in Frameworks */,
+				5381599319290A890053161E /* MapKit.framework in Frameworks */,
+				53FC18591930475E005B7B15 /* FacebookSDK.framework in Frameworks */,
 				5363AAC11921CECB007F1371 /* UIKit.framework in Frameworks */,
 				5363AABD1921CECB007F1371 /* Foundation.framework in Frameworks */,
+				53111146192ECBA800B1D631 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +137,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5311115C192EE81200B1D631 /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				53111159192EE80E00B1D631 /* ParseTransactions.h */,
+				5311115A192EE80E00B1D631 /* ParseTransactions.m */,
+			);
+			name = Parse;
+			sourceTree = "<group>";
+		};
 		533C2B07192C2F1500D81023 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +177,17 @@
 		5363AABB1921CECB007F1371 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				53FC18581930475E005B7B15 /* FacebookSDK.framework */,
+				53111157192ECC5400B1D631 /* SystemConfiguration.framework */,
+				53111155192ECC4500B1D631 /* StoreKit.framework */,
+				53111153192ECC3100B1D631 /* Security.framework */,
+				53111151192ECC2400B1D631 /* QuartzCore.framework */,
+				5311114F192ECC1800B1D631 /* MobileCoreServices.framework */,
+				5311114D192ECC0A00B1D631 /* libz.dylib */,
+				5311114B192ECBF900B1D631 /* CoreLocation.framework */,
+				53111149192ECBE500B1D631 /* CFNetwork.framework */,
+				53111147192ECBD800B1D631 /* AudioToolbox.framework */,
+				53111145192ECBA800B1D631 /* Parse.framework */,
 				5381599219290A890053161E /* MapKit.framework */,
 				5363AABC1921CECB007F1371 /* Foundation.framework */,
 				5363AABE1921CECB007F1371 /* CoreGraphics.framework */,
@@ -151,6 +202,7 @@
 			children = (
 				5363AACB1921CECB007F1371 /* AppDelegate.h */,
 				5363AACC1921CECB007F1371 /* AppDelegate.m */,
+				5311115C192EE81200B1D631 /* Parse */,
 				533C2B07192C2F1500D81023 /* Maps */,
 				5363AACE1921CECB007F1371 /* Main.storyboard */,
 				53FBA20019243DE0003838C3 /* TableViewCell */,
@@ -166,7 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				5363AAC41921CECB007F1371 /* HeroQuest-Info.plist */,
-				5363AAC51921CECB007F1371 /* InfoPlist.strings */,
+				53FC18561930111B005B7B15 /* Localizable.strings */,
 				5363AAC81921CECB007F1371 /* main.m */,
 				5363AACA1921CECB007F1371 /* HeroQuest-Prefix.pch */,
 			);
@@ -186,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				5363AAE31921CECB007F1371 /* HeroQuestTests-Info.plist */,
-				5363AAE41921CECB007F1371 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -304,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5363AAD51921CECB007F1371 /* Images.xcassets in Resources */,
-				5363AAC71921CECB007F1371 /* InfoPlist.strings in Resources */,
+				53FC18571930111B005B7B15 /* Localizable.strings in Resources */,
 				5363AAD01921CECB007F1371 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,7 +364,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5363AAE61921CECB007F1371 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5311115B192EE80E00B1D631 /* ParseTransactions.m in Sources */,
 				5363AACD1921CECB007F1371 /* AppDelegate.m in Sources */,
 				5363AAC91921CECB007F1371 /* main.m in Sources */,
 				53B982461925A7DF00057D4B /* QuestSettingsViewController.m in Sources */,
@@ -356,31 +407,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5363AAC51921CECB007F1371 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5363AAC61921CECB007F1371 /* en */,
-				538BA74919232390007F7C38 /* es */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		5363AACE1921CECB007F1371 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5363AACF1921CECB007F1371 /* Base */,
-				538BA74819232390007F7C38 /* es */,
+				53AE036A192F1112003D8943 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5363AAE41921CECB007F1371 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5363AAE51921CECB007F1371 /* en */,
-				538BA74A19232390007F7C38 /* es */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -461,6 +493,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HeroQuest/HeroQuest-Prefix.pch";
 				INFOPLIST_FILE = "HeroQuest/HeroQuest-Info.plist";
@@ -474,6 +510,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HeroQuest/HeroQuest-Prefix.pch";
 				INFOPLIST_FILE = "HeroQuest/HeroQuest-Info.plist";

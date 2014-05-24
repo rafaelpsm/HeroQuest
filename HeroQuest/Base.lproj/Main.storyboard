@@ -21,7 +21,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wfw-Dq-NJy">
-                                        <rect key="frame" x="36" y="10" width="208" height="30"/>
+                                        <rect key="frame" x="36" y="25" width="208" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.94242273430000001" blue="0.78551779430000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -31,7 +31,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4J2-ba-x5O">
-                                        <rect key="frame" x="35" y="48" width="208" height="30"/>
+                                        <rect key="frame" x="35" y="63" width="208" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.94242273430000001" blue="0.78551779430000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -41,7 +41,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="782-OH-TEh">
-                                        <rect key="frame" x="36" y="159" width="208" height="30"/>
+                                        <rect key="frame" x="148" y="147" width="96" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Sign up!">
@@ -53,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2T-KE-awY">
-                                        <rect key="frame" x="35" y="125" width="208" height="26"/>
+                                        <rect key="frame" x="35" y="150" width="90" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Log in!">
@@ -65,12 +65,12 @@
                                         </connections>
                                     </button>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4eT-6o-7a9">
-                                        <rect key="frame" x="36" y="86" width="51" height="31"/>
+                                        <rect key="frame" x="36" y="101" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="onTintColor" red="1" green="0.94242273430000001" blue="0.78551779430000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </switch>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remember username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CB6-Tc-VUZ">
-                                        <rect key="frame" x="94" y="86" width="151" height="31"/>
+                                        <rect key="frame" x="94" y="101" width="151" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="664" y="71"/>
+            <point key="canvasLocation" x="88" y="71"/>
         </scene>
         <!--Signup View Controller - Sign Up-->
         <scene sceneID="3yv-78-71t">
@@ -117,7 +117,7 @@
                         <viewControllerLayoutGuide type="top" id="qIV-eG-xLJ"/>
                         <viewControllerLayoutGuide type="bottom" id="DRu-FL-Ijh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bQi-yn-la5">
+                    <view key="view" contentMode="scaleToFill" id="bQi-yn-la5" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -184,7 +184,7 @@
                                     <constraint firstAttribute="width" constant="280" id="mMG-Yw-TDh"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="hideKeyboard:" destination="vXZ-lx-hvc" eventType="touchDown" id="dt6-oZ-mUg"/>
+                                    <action selector="hideKeyboard:" destination="5YP-g6-mgk" eventType="touchDown" id="mcF-om-FwE"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -193,6 +193,9 @@
                             <constraint firstAttribute="centerX" secondItem="TaO-vb-Mc9" secondAttribute="centerX" id="dzc-tA-tJf"/>
                             <constraint firstAttribute="centerY" secondItem="TaO-vb-Mc9" secondAttribute="centerY" id="zjf-rH-qx0"/>
                         </constraints>
+                        <connections>
+                            <action selector="hideKeyboard:" destination="5YP-g6-mgk" eventType="touchDown" id="2I0-k8-IcV"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="HGr-7H-xON"/>
                     <connections>
@@ -201,11 +204,12 @@
                         <outlet property="nameTextField" destination="KO8-Dy-XX1" id="e8s-Ov-4mh"/>
                         <outlet property="passwordTextField" destination="eTG-z4-fG9" id="bih-Ma-ijD"/>
                         <outlet property="usernameTextField" destination="Tdi-5M-6LI" id="iP8-ik-Z6N"/>
+                        <segue destination="PIQ-tv-1vA" kind="push" identifier="SegueSignupViewControllerToQuestListViewController" id="cv7-L3-wtc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXT-nU-9px" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1119" y="762"/>
+            <point key="canvasLocation" x="607" y="762"/>
         </scene>
         <!--Quest Settings View Controller - Settings-->
         <scene sceneID="vGI-Mn-S1u">
@@ -505,7 +509,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S0i-gd-wMT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="218" y="71"/>
+            <point key="canvasLocation" x="-358" y="71"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -514,4 +518,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="hM0-yB-pqX"/>
+    </inferredMetricsTieBreakers>
 </document>

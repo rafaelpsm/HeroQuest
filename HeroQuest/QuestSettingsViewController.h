@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol QuestSettingsViewControllerDelegate <NSObject>
+@optional
+-(void)didDismissSettigns;
+@end
+
 @interface QuestSettingsViewController : UIViewController
 
-@property (strong, nonatomic) UIViewController* originViewController;
+@property (weak, nonatomic) id<QuestSettingsViewControllerDelegate> delegate;
 
 @end

@@ -7,8 +7,10 @@
 //
 
 #import "SignupViewController.h"
+#import "QuestListViewController.h"
 
-@interface SignupViewController (){
+@interface SignupViewController () <ParseTransactionsDelegate>
+{
     
     IBOutlet UIView *myView;
     IBOutlet UITextField *usernameTextField;
@@ -17,6 +19,7 @@
     IBOutlet UISegmentedControl *alignmentSegmentControl;
     
     NSUserDefaults* userDefaults;
+    ParseTransactions* parseTransactions;
 }
 
 @end
@@ -31,6 +34,10 @@
     
     myView.layer.cornerRadius = 15;
     myView.layer.masksToBounds = YES;
+    
+    parseTransactions = [ParseTransactions new];
+    parseTransactions.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,34 +49,87 @@
     NSString* field;
     
     if ([usernameTextField.text isEqualToString:@""]) {
-        field = NSLocalizedString(@"alertview.missingdata.username", nil);
+        field = NSLocalizedString(@"field.username", nil);
     } else if ([passwordTextField.text isEqualToString:@""]) {
-        field = NSLocalizedString(@"alertview.missingdata.password", nil);
-    } if ([nameTextField.text isEqualToString:@""]) {
-        field = NSLocalizedString(@"alertview.missingdata.name", nil);
+        field = NSLocalizedString(@"field.password", nil);
+    } else if ([nameTextField.text isEqualToString:@""]) {
+        field = NSLocalizedString(@"field.name", nil);
     }
     
     if (field) {
-        UIAlertView* al = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"alertview.missingdata.title", nil)
-                                                     message:NSLocalizedString(@"alertview.missingdata.message", nil)
+        UIAlertView* al = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"alertview.loginincorrect.title", nil)
+                                                     message:[NSString stringWithFormat: NSLocalizedString(@"alertview.mandatory.message", nil), field]
                                                     delegate:nil
                                            cancelButtonTitle:nil
-                                           otherButtonTitles:NSLocalizedString(@"alertview.missingdata.button.ok", nil), nil];
+                                           otherButtonTitles:NSLocalizedString(@"alertview.loginincorrect.button.ok", nil), nil];
         [al show];
     } else {
-        //parse
+        [parseTransactions verifyExistenceUsername:usernameTextField.text];
     }
 }
 
-/*
+
+- (void)saveUserParse {
+    PFUser *user = [PFUser user];
+    user.username = usernameTextField.text;
+    user.password = passwordTextField.text;
+    user[PARSE_USER_NAME]      = nameTextField.text;
+    user[PARSE_USER_ALIGNMENT] = [NSNumber numberWithLong:alignmentSegmentControl.selectedSegmentIndex];
+    
+    [parseTransactions signupUser:user];
+}
+
+#pragma mark ParseTransactionsDelegate
+
+- (void)didVerifyExistenceUsername:(BOOL)usernameExists
+{
+    if (usernameExists) {
+        UIAlertView* al = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"alertview.loginincorrect.title", nil)
+                                                     message:NSLocalizedString(@"alertview.username.existent.message", nil)
+                                                    delegate:nil
+                                           cancelButtonTitle:nil
+                                           otherButtonTitles:NSLocalizedString(@"alertview.loginincorrect.button.ok", nil), nil];
+        [al show];
+    } else {
+        [self saveUserParse];
+    }
+}
+
+- (void)didSignupUser:(BOOL)succeed
+{
+    if (succeed) {
+        [parseTransactions authenticateWithUsername:usernameTextField.text withPassword:passwordTextField.text];
+    } else {
+        NSLog(@"Error when salving in Parse");
+    }
+}
+
+- (void)didAutenticatheResponse:(PFUser*)user
+{
+    if (user) {
+        [userDefaults setObject:user.objectId forKey:LOGGED_USER_ID];
+        [userDefaults setObject:user[PARSE_USER_NAME] forKey:LOGGED_USER_NAME];
+        [userDefaults synchronize];
+        [self performSegueWithIdentifier:SEGUE_FROM_SIGNUP_TO_QUEST_LIST sender:self];
+    } else {
+        NSLog(@"Could not authenticate");
+    }
+}
+
+#pragma mark Keyboard
+
+- (IBAction)hideKeyboard:(id)sender {
+    [self.view endEditing:YES];
+}
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[QuestListViewController class]]) {
+        QuestListViewController* vc = segue.destinationViewController;
+        vc.navigationItem.hidesBackButton = YES;
+    }
 }
-*/
 
 @end

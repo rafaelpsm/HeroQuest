@@ -14,7 +14,8 @@
 
 
 
-@interface QuestListViewController (){
+@interface QuestListViewController () <QuestSettingsViewControllerDelegate>
+{
     NSArray* questListTemp;
     NSMutableArray* questList;
     NSIndexPath* selectedIndexPath;
@@ -85,35 +86,41 @@
 
 -(void)applyFilters
 {
-    NSDictionary* filters = [userDefaults objectForKey:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER];
+    NSDictionary* filters = [userDefaults objectForKey:[NSString stringWithFormat:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER, [userDefaults objectForKey:LOGGED_USER_ID]]];
     NSMutableString* predicateFormatString = [NSMutableString stringWithString:@" 1 == 1 "];
     NSMutableArray* parameters = [NSMutableArray new];
     questList = [NSMutableArray new];
     
-    if (filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] && ![filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] isEqualToString:@""]) {
-        [predicateFormatString appendString:@" AND %K contains[cd] %@ "];
-        [parameters addObject:GIVER];
-        [parameters addObject:filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME]];
-    }
-    if ([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] integerValue] != QUEST_ALIGNMENT_NEUTRAL) {
-        [predicateFormatString appendString:@" AND %K == %@ "];
-        [parameters addObject:ALIGNMENT];
-        [parameters addObject:filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT]];
+    if (filters) {
+        if (filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] && ![filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] isEqualToString:@""]) {
+            [predicateFormatString appendString:@" AND %K contains[cd] %@ "];
+            [parameters addObject:GIVER];
+            [parameters addObject:filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME]];
+        }
+        if ([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] integerValue] != QUEST_ALIGNMENT_NEUTRAL) {
+            [predicateFormatString appendString:@" AND %K == %@ "];
+            [parameters addObject:ALIGNMENT];
+            [parameters addObject:filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT]];
+        }
     }
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormatString argumentArray:parameters];
-    questListTemp = [questListTemp filteredArrayUsingPredicate:predicate];
+    NSArray* questListTemp2 = [questListTemp filteredArrayUsingPredicate:predicate];
     
-    CLLocationCoordinate2D centerCoordenate = CLLocationCoordinate2DMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][1] doubleValue]);
-    MKCoordinateSpan span = MKCoordinateSpanMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][1] doubleValue]);
-    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordenate, span);
-    
-    for (NSDictionary* dict in questListTemp) {
-        CLLocationCoordinate2D coordinateTask = CLLocationCoordinate2DMake([dict[LOCATION][0] doubleValue], [dict[LOCATION][1] doubleValue]);
-        CLLocationCoordinate2D coordinateGiver = CLLocationCoordinate2DMake([dict[GIVER_LOCATION][0] doubleValue], [dict[GIVER_LOCATION][1] doubleValue]);
-        if([self coordinate:coordinateTask inRegion:region] || [self coordinate:coordinateGiver inRegion:region]){
-            [questList addObject:dict];
+    if (filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER]) {
+        CLLocationCoordinate2D centerCoordenate = CLLocationCoordinate2DMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][1] doubleValue]);
+        MKCoordinateSpan span = MKCoordinateSpanMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][1] doubleValue]);
+        MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordenate, span);
+        
+        for (NSDictionary* dict in questListTemp2) {
+            CLLocationCoordinate2D coordinateTask = CLLocationCoordinate2DMake([dict[LOCATION][0] doubleValue], [dict[LOCATION][1] doubleValue]);
+            CLLocationCoordinate2D coordinateGiver = CLLocationCoordinate2DMake([dict[GIVER_LOCATION][0] doubleValue], [dict[GIVER_LOCATION][1] doubleValue]);
+            if([self coordinate:coordinateTask inRegion:region] || [self coordinate:coordinateGiver inRegion:region]){
+                [questList addObject:dict];
+            }
         }
+    } else {
+        [questList addObjectsFromArray:questListTemp2];
     }
     
     [questTableView reloadData];
@@ -134,7 +141,7 @@
 
 - (IBAction)onSettingButtonPressed:(UIBarButtonItem *)sender {
     QuestSettingsViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:QUEST_SETTINGS_VIEW_CONTROLLER_ID];
-    controller.originViewController = self;
+    controller.delegate = self;
     [self presentViewController:controller animated:YES completion:nil];
 }
 
@@ -168,6 +175,12 @@
     [self performSegueWithIdentifier:SEGUE_FROM_QUEST_LIST_TO_DETAIL sender:self];
 }
 
+#pragma mark QuestSettingsViewControllerDelegate
+
+- (void)didDismissSettigns
+{
+    [self applyFilters];
+}
 
 #pragma mark - Navigation
 
