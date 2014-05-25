@@ -18,7 +18,10 @@
                 [self.delegate didAutenticatheResponse:user];
             }
         } else {
-            NSLog(@"Error onSignupButtonPressed: %@ %@", error, [error userInfo]);
+            NSLog(@"Error authenticateWithUsername: %@ %@", error, [error userInfo]);
+            if (self.delegate) {
+                [self.delegate didAutenticatheResponse:nil];
+            }
         }
     }];
     
@@ -39,7 +42,7 @@
                 }
             }
         } else {
-            NSLog(@"Error onSignupButtonPressed: %@ %@", error, [error userInfo]);
+            NSLog(@"Error verifyExistenceUsername: %@ %@", error, [error userInfo]);
         }
     }];
 }
