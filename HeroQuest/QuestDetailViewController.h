@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Quest.h"
 
 @interface QuestDetailViewController : UIViewController
 
-@property (strong, nonatomic) NSDictionary* questDetailDictionary;
+@property (strong, nonatomic) Quest* quest;
 
 @end

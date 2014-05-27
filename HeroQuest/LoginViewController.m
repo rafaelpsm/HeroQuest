@@ -16,6 +16,7 @@
     IBOutlet UISwitch *rememberUsernameSwitch;
     IBOutlet UIView *myView;
     IBOutlet UIButton *facebookLoginButton;
+    IBOutlet UIView *loadingView;
     
     
     NSUserDefaults* userDefaults;
@@ -38,6 +39,8 @@
     myView.layer.masksToBounds = YES;
     facebookLoginButton.layer.cornerRadius = 5;
     facebookLoginButton.layer.masksToBounds = YES;
+    loadingView.layer.cornerRadius = 20;
+    loadingView.layer.masksToBounds = YES;
     
     //Remembering username
     NSString* usernameRemembered = [userDefaults objectForKey:LOGIN_VIEW_CONTROLLER_REMEMBER_USERNAME];
@@ -61,6 +64,8 @@
 
 - (IBAction)onLoginButtonPressed:(UIButton *)sender {
     
+    loadingView.hidden = NO;
+    
     //If Remember username is activated we save the username on userdefaults
     if (rememberUsernameSwitch.on) {
         [userDefaults setObject:usernameTextField.text forKey:LOGIN_VIEW_CONTROLLER_REMEMBER_USERNAME];
@@ -75,6 +80,8 @@
 }
 
 - (IBAction)onFBLoginButtonPressed:(id)sender  {
+    loadingView.hidden = NO;
+    
     // The permissions requested from the user
     NSArray *permissionsArray = @[ @"user_about_me", @"user_birthday"];
     
@@ -162,6 +169,7 @@
 
 - (void)didAutenticatheResponse:(PFUser*)user
 {
+    loadingView.hidden = YES;
     if (user) {
         [userDefaults setObject:user.objectId forKey:LOGGED_USER_ID];
         [userDefaults setObject:user[PARSE_USER_NAME] forKey:LOGGED_USER_NAME];

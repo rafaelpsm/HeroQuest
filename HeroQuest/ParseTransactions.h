@@ -13,6 +13,7 @@
 - (void)didAutenticatheResponse:(PFUser*)user;
 - (void)didVerifyExistenceUsername:(BOOL)usernameExists;
 - (void)didSignupUser:(BOOL)succeed;
+- (void)didListQuests:(NSArray*)list;
 @end
 
 @interface ParseTransactions : NSObject
@@ -22,5 +23,6 @@
 -(void)authenticateWithUsername:(NSString*)username withPassword:(NSString*)password;
 -(void)verifyExistenceUsername:(NSString*)username;
 -(void)signupUser:(PFUser*)user;
+-(void)listQuests:(NSDictionary *)filters status:(NSNumber*)status;
 
 @end

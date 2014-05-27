@@ -17,3 +17,8 @@
 "field.name" = "Name";
 "alertview.mandatory.message" = "%@ is mandatory!";
 "alertview.username.existent.message"= "Username existent!!";
+
+//QuestListViewController
+"quest.completed" = "Completed";
+"quest.accepted" = "Accepted";
+"quest.notaccepted" = "Not Accepted";

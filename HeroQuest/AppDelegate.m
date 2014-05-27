@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Quest.h"
 
 @implementation AppDelegate
 
@@ -24,7 +25,7 @@
                                                            nil, NSShadowAttributeName,
                                                            nil, NSFontAttributeName, nil]];
     
-    
+    [Quest registerSubclass];
     [Parse setApplicationId:@"nyV2iKoWp4ZvHfRj1nOeQElDRjZLcmXKviq0LQKB"
                   clientKey:@"V59gduRqnzJZdT90F9rItnPY4kEoaNPScrQxWPc1"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];

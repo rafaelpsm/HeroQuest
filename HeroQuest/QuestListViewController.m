@@ -10,18 +10,22 @@
 #import "QuestListTableViewCell.h"
 #import "QuestDetailViewController.h"
 #import "QuestSettingsViewController.h"
+#import "ParseTransactions.h"
+#import "Quest.h"
 
 
-
-
-@interface QuestListViewController () <QuestSettingsViewControllerDelegate>
+@interface QuestListViewController () <QuestSettingsViewControllerDelegate, ParseTransactionsDelegate>
 {
-    NSArray* questListTemp;
-    NSMutableArray* questList;
-    NSIndexPath* selectedIndexPath;
     IBOutlet UITableView *questTableView;
+    IBOutlet UIView *loadingView;
+    
+    NSArray* questListTemp;
+    NSArray* questListOrder;
+    NSMutableDictionary* questList;
+    NSIndexPath* selectedIndexPath;
     UIDeviceOrientation currentOrientation;
     NSUserDefaults* userDefaults;
+    ParseTransactions* parseTransactions;
 }
 
 @end
@@ -33,30 +37,11 @@
     [super viewDidLoad];
     
     userDefaults = [NSUserDefaults standardUserDefaults];
+    parseTransactions = [ParseTransactions new];
+    parseTransactions.delegate = self;
     
-    questListTemp = @[
-                  @{TITLE: @"Bandits in the Woods - Yes this is a log title",
-                    GIVER: @"HotDogg The Bounty Hunter",
-                    GIVER_LOCATION: @[@46.8541979, @-96.8285138],
-                    ALIGNMENT: @QUEST_ALIGNMENT_GOOD,
-                    DESCRIPTION: @"The famed bounty hunter HotDog has requested the aid of a hero in ridding the woods of terrifying bandits who have thus far eluded his capture, as he is actually a dog, and cannot actually grab things more than 6 feet off the ground. ",
-                    LOCATION: @[@46.908588, @-96.808991]
-                    },
-                  @{TITLE: @"Special Delivery",
-                    GIVER: @"Sir Jimmy The Swift",
-                    GIVER_LOCATION: @[@46.8739748, @-96.806112],
-                    ALIGNMENT: @QUEST_ALIGNMENT_NEUTRAL,
-                    DESCRIPTION: @"Sir Jimmy was once the fastest man in the kingdom, brave as any soldier and wise as a king. Unfortunately, age catches us all in the end, and he has requested that I, his personal scribe, find a hero to deliver a package of particular importance--and protect it with their life. ",
-                    LOCATION: @[@46.8657639, @-96.7363173]
-                    },
-                  @{TITLE: @"Filthy Mongrel",
-                    GIVER: @"Prince Jack, The Iron Horse",
-                    GIVER_LOCATION: @[@46.8739748, @-96.806112],
-                    ALIGNMENT: @QUEST_ALIGNMENT_EVIL,
-                    DESCRIPTION: @"That strange dog that everyone is treating like a bounty-hunter must go. By the order of Prince Jack, that smelly, disease ridden mongrel must be removed from our streets by any means necessary. He is disrupting the lives of ordinary citizens, and it's just really weird. Make it gone. ",
-                    LOCATION: @[@46.892386, @-96.799669]
-                    }
-                  ];
+    loadingView.layer.cornerRadius = 20;
+    loadingView.layer.masksToBounds = YES;
     
     [self applyFilters];
 }
@@ -84,57 +69,39 @@
     [super didReceiveMemoryWarning];
 }
 
+
 -(void)applyFilters
 {
+    loadingView.hidden = NO;
     NSDictionary* filters = [userDefaults objectForKey:[NSString stringWithFormat:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER, [userDefaults objectForKey:LOGGED_USER_ID]]];
-    NSMutableString* predicateFormatString = [NSMutableString stringWithString:@" 1 == 1 "];
-    NSMutableArray* parameters = [NSMutableArray new];
-    questList = [NSMutableArray new];
-    
-    if (filters) {
-        if (filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] && ![filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME] isEqualToString:@""]) {
-            [predicateFormatString appendString:@" AND %K contains[cd] %@ "];
-            [parameters addObject:GIVER];
-            [parameters addObject:filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_NAME]];
-        }
-        if ([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT] integerValue] != QUEST_ALIGNMENT_NEUTRAL) {
-            [predicateFormatString appendString:@" AND %K == %@ "];
-            [parameters addObject:ALIGNMENT];
-            [parameters addObject:filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_ALIGNMENT]];
-        }
-    }
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormatString argumentArray:parameters];
-    NSArray* questListTemp2 = [questListTemp filteredArrayUsingPredicate:predicate];
-    
-    if (filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER]) {
-        CLLocationCoordinate2D centerCoordenate = CLLocationCoordinate2DMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_CENTER][1] doubleValue]);
-        MKCoordinateSpan span = MKCoordinateSpanMake([filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][0] doubleValue], [filters[QUEST_SETTINGS_VIEW_CONTROLLER_FILTER_LOCATION_REGION][1] doubleValue]);
-        MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordenate, span);
-        
-        for (NSDictionary* dict in questListTemp2) {
-            CLLocationCoordinate2D coordinateTask = CLLocationCoordinate2DMake([dict[LOCATION][0] doubleValue], [dict[LOCATION][1] doubleValue]);
-            CLLocationCoordinate2D coordinateGiver = CLLocationCoordinate2DMake([dict[GIVER_LOCATION][0] doubleValue], [dict[GIVER_LOCATION][1] doubleValue]);
-            if([self coordinate:coordinateTask inRegion:region] || [self coordinate:coordinateGiver inRegion:region]){
-                [questList addObject:dict];
-            }
-        }
-    } else {
-        [questList addObjectsFromArray:questListTemp2];
-    }
-    
-    [questTableView reloadData];
+    [parseTransactions listQuests:filters status:@-1];
 }
 
-- (BOOL)coordinate:(CLLocationCoordinate2D)coord inRegion:(MKCoordinateRegion)region
+-(void)questListReceived
 {
-    CLLocationCoordinate2D center = region.center;
-    MKCoordinateSpan span = region.span;
+    questList = [NSMutableDictionary new];
+    NSMutableArray* sectionCompleted = [NSMutableArray new];
+    NSMutableArray* sectionAccepted = [NSMutableArray new];
+    NSMutableArray* sectionNotAccepted = [NSMutableArray new];
     
-    BOOL result = YES;
-    result &= cos((center.latitude - coord.latitude)*M_PI/180.0) > cos(span.latitudeDelta/2.0*M_PI/180.0);
-    result &= cos((center.longitude - coord.longitude)*M_PI/180.0) > cos(span.longitudeDelta/2.0*M_PI/180.0);
-    return result;
+    for (Quest* quest in questListTemp) {
+        if ([quest[PARSE_QUESTS_COMPLETED] isEqualToNumber:@YES]) {
+            [sectionCompleted addObject:quest];
+        } else if ([((PFUser*) quest[PARSE_QUESTS_QUEST_GIVER]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
+            [sectionAccepted addObject:quest];
+        } else {
+            [sectionNotAccepted addObject:quest];
+        }
+    }
+    
+    [questList setObject:sectionNotAccepted forKey:NSLocalizedString(@"quest.notaccepted", nil)];
+    [questList setObject:sectionAccepted forKey:NSLocalizedString(@"quest.accepted", nil)];
+    [questList setObject:sectionCompleted forKey:NSLocalizedString(@"quest.completed", nil)];
+    
+    questListOrder = @[NSLocalizedString(@"quest.notaccepted", nil), NSLocalizedString(@"quest.accepted", nil), NSLocalizedString(@"quest.completed", nil)];
+    
+    [questTableView reloadData];
+    loadingView.hidden = YES;
 }
 
 #pragma mark Actions
@@ -147,9 +114,39 @@
 
 #pragma mark UITableViewDataSource, UITableViewDelegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return questListOrder.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return questListOrder[section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 35)];
+    [label setFont:[UIFont boldSystemFontOfSize:12]];
+    NSString *string = [self tableView:tableView titleForHeaderInSection:section];
+    label.text = string;
+    label.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.75];
+    
+    [view addSubview:label];
+    [view setBackgroundColor:UIColorFromRGB(0xFFDC86)];
+    
+    return view;
+}
+
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return questList.count;
+    return [questList[questListOrder[section]] count];
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -159,10 +156,13 @@
         cellID = TABLE_VIEW_CELL_QUEST_LIST_PORTRAIT;
     }
     QuestListTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    NSDictionary* dict = questList[indexPath.row];
+    Quest* quest = [questList[questListOrder[indexPath.section]] objectAtIndex:indexPath.row];
+    PFUser* user = quest[PARSE_QUESTS_QUEST_GIVER];
+    [user fetchIfNeeded];
     
-    cell.questTitleLabel.text = dict[TITLE];
-    cell.questAuthorLabel.text = [NSString stringWithFormat:POSTED_BY, dict[GIVER]];
+    cell.questTitleLabel.text = quest[PARSE_QUESTS_NAME];
+    NSLog(@"%@", (PFUser*)quest[PARSE_QUESTS_QUEST_GIVER]);
+    cell.questAuthorLabel.text = [NSString stringWithFormat:POSTED_BY, user[PARSE_USER_NAME]];
     
     return cell;
 }
@@ -182,12 +182,21 @@
     [self applyFilters];
 }
 
+#pragma mark ParseTransactionsDelegate
+
+- (void)didListQuests:(NSArray *)list
+{
+    questListTemp = list;
+    
+    [self questListReceived];
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     QuestDetailViewController* vc = segue.destinationViewController;
-    vc.questDetailDictionary = questList[selectedIndexPath.row];
+    vc.quest = [questList[questListOrder[selectedIndexPath.section]] objectAtIndex:selectedIndexPath.row];
 }
 
 
