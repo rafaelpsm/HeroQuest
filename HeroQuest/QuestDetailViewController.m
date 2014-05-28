@@ -9,7 +9,7 @@
 #import "QuestDetailViewController.h"
 #import "QuestPointAnnotation.h"
 
-@interface QuestDetailViewController () <MKMapViewDelegate>
+@interface QuestDetailViewController () <MKMapViewDelegate, UIAlertViewDelegate, ParseTransactionsDelegate>
 {
     IBOutlet UILabel *questTitleLabel;
     IBOutlet UILabel *questAuthorLabel;
@@ -20,6 +20,8 @@
     UIView *landscapeView;
     UIView *currentView;
     NSDictionary* filters;
+    NSUserDefaults* userDefaults;
+    ParseTransactions* parseTransactions;
 }
 
 @end
@@ -30,12 +32,21 @@
 {
     [super viewDidLoad];
     
-    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    parseTransactions = [ParseTransactions new];
+    parseTransactions.delegate = self;
+    
+    userDefaults = [NSUserDefaults standardUserDefaults];
     filters = [userDefaults objectForKey:[NSString stringWithFormat:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER, [userDefaults objectForKey:LOGGED_USER_ID]]];
 
     questTitleLabel.text = self.quest[PARSE_QUESTS_NAME];
     questAuthorLabel.text = self.quest[PARSE_QUESTS_QUEST_GIVER][PARSE_USER_NAME];
     questDescriptionTextView.text = self.quest[PARSE_QUESTS_DESCRIPTION];
+    
+    if ([self.quest[PARSE_QUESTS_COMPLETED] boolValue]) {
+        acceptBarButtonItem.image = [UIImage imageNamed:@"bt_completed"];
+    } else if ([((PFUser*) self.quest[PARSE_QUESTS_ACCEPTED_BY]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
+        acceptBarButtonItem.image = [UIImage imageNamed:@"bt_complete"];
+    }
     
     [self populateMapView];
     
@@ -138,6 +149,26 @@
 
 - (IBAction)onAcceptBarButtonItemPressed:(id)sender {
     
+    if ([self.quest[PARSE_QUESTS_COMPLETED] boolValue]) {
+        
+    } else if ([((PFUser*) self.quest[PARSE_QUESTS_ACCEPTED_BY]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
+        
+        UIAlertView* al = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"alertview.questdetail.title", nil)
+                                                     message:NSLocalizedString(@"alertview.questdetail.complete.message", nil)
+                                                    delegate:self
+                                           cancelButtonTitle:nil
+                                           otherButtonTitles:NSLocalizedString(@"alertview.questdetail.complete.yes", nil), NSLocalizedString(@"alertview.questdetail.complete.no", nil), nil];
+        [al show];
+    } else {
+        
+        UIAlertView* al = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"alertview.questdetail.title", nil)
+                                                     message:NSLocalizedString(@"alertview.questdetail.accept.message", nil)
+                                                    delegate:self
+                                           cancelButtonTitle:nil
+                                           otherButtonTitles:NSLocalizedString(@"alertview.questdetail.accept.yes", nil), NSLocalizedString(@"alertview.questdetail.accept.no", nil), nil];
+        [al show];
+    }
+    
 }
 
 #pragma mark MKMapViewDelegate
@@ -176,6 +207,40 @@
     NSString *latlong = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
     NSString *url = [NSString stringWithFormat: @"http://maps.apple.com/maps?q=%@", [latlong stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            if ([((PFUser*) self.quest[PARSE_QUESTS_ACCEPTED_BY]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
+                self.quest[PARSE_QUESTS_COMPLETED] = @YES;
+                [parseTransactions saveQuest:self.quest];
+            } else {
+                PFUser* me = [PFUser new];
+                me.objectId = [userDefaults objectForKey:LOGGED_USER_ID];
+                [me fetchIfNeeded];
+                self.quest[PARSE_QUESTS_ACCEPTED_BY] = me;
+                [parseTransactions saveQuest:self.quest];
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark ParseTransactionsDelegate
+
+- (void)didSaveQuest:(BOOL)succeeded
+{
+    if ([self.quest[PARSE_QUESTS_COMPLETED] boolValue]) {
+        acceptBarButtonItem.image = [UIImage imageNamed:@"bt_completed"];
+    } else if ([((PFUser*) self.quest[PARSE_QUESTS_ACCEPTED_BY]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
+        acceptBarButtonItem.image = [UIImage imageNamed:@"bt_complete"];
+    }
 }
 
 /*

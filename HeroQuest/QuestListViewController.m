@@ -87,7 +87,7 @@
     for (Quest* quest in questListTemp) {
         if ([quest[PARSE_QUESTS_COMPLETED] isEqualToNumber:@YES]) {
             [sectionCompleted addObject:quest];
-        } else if ([((PFUser*) quest[PARSE_QUESTS_QUEST_GIVER]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
+        } else if ([((PFUser*) quest[PARSE_QUESTS_ACCEPTED_BY]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
             [sectionAccepted addObject:quest];
         } else {
             [sectionNotAccepted addObject:quest];

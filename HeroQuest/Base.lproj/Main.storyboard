@@ -406,7 +406,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Detail" id="wuA-uC-rtC">
                         <barButtonItem key="rightBarButtonItem" image="bt_accept" id="XgD-fj-L5L">
-                            <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="onAcceptBarButtonItemPressed:" destination="wgf-an-VVx" id="f2i-O0-qCh"/>
                             </connections>

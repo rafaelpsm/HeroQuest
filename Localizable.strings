@@ -22,3 +22,12 @@
 "quest.completed" = "Completed";
 "quest.accepted" = "Accepted";
 "quest.notaccepted" = "Not Accepted";
+
+//DetailViewController
+"alertview.questdetail.title" = "WHAT!?!";
+"alertview.questdetail.accept.message" = "Do you think you are ready for this challenge?";
+"alertview.questdetail.accept.yes" = "My name is Ready!";
+"alertview.questdetail.accept.no" = "Maybe not";
+"alertview.questdetail.complete.message" = "Did you really complete this challenge? I have my doubts....";
+"alertview.questdetail.complete.yes" = "I nailed it!";
+"alertview.questdetail.complete.no" = "Forget it...";

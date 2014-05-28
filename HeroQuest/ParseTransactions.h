@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Quest.h"
 
 @protocol ParseTransactionsDelegate <NSObject>
 @optional
@@ -14,6 +15,7 @@
 - (void)didVerifyExistenceUsername:(BOOL)usernameExists;
 - (void)didSignupUser:(BOOL)succeed;
 - (void)didListQuests:(NSArray*)list;
+- (void)didSaveQuest:(BOOL)succeeded;
 @end
 
 @interface ParseTransactions : NSObject
@@ -24,5 +26,6 @@
 -(void)verifyExistenceUsername:(NSString*)username;
 -(void)signupUser:(PFUser*)user;
 -(void)listQuests:(NSDictionary *)filters status:(NSNumber*)status;
+-(void)saveQuest:(Quest*)quest;
 
 @end
