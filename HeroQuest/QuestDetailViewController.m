@@ -241,6 +241,7 @@
     } else if ([((PFUser*) self.quest[PARSE_QUESTS_ACCEPTED_BY]).objectId isEqualToString:[userDefaults objectForKey:LOGGED_USER_ID]]) {
         acceptBarButtonItem.image = [UIImage imageNamed:@"bt_complete"];
     }
+    [userDefaults setObject:[NSDate new] forKey:QUEST_DETAIL_VIEW_CONTROLLER_UPDATE_LIST];
 }
 
 /*

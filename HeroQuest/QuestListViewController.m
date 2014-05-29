@@ -18,6 +18,8 @@
 {
     IBOutlet UITableView *questTableView;
     IBOutlet UIView *loadingView;
+    IBOutlet UISegmentedControl *statusFilterSegmentControl;
+    IBOutlet UIView *statusView;
     
     NSArray* questListTemp;
     NSArray* questListOrder;
@@ -48,7 +50,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (currentOrientation != [[UIDevice currentDevice] orientation]) {
+    if ([userDefaults objectForKey:QUEST_DETAIL_VIEW_CONTROLLER_UPDATE_LIST]) {
+        [userDefaults removeObjectForKey:QUEST_DETAIL_VIEW_CONTROLLER_UPDATE_LIST];
+        
+        [self applyFilters];
+        
+    } else if (currentOrientation != [[UIDevice currentDevice] orientation]) {
         [questTableView reloadData];
     }
 }
@@ -74,12 +81,13 @@
 {
     loadingView.hidden = NO;
     NSDictionary* filters = [userDefaults objectForKey:[NSString stringWithFormat:QUEST_SETTINGS_VIEW_CONTROLLER_FILTER, [userDefaults objectForKey:LOGGED_USER_ID]]];
-    [parseTransactions listQuests:filters status:@-1];
+    [parseTransactions listQuests:filters status:[NSNumber numberWithInteger:statusFilterSegmentControl.selectedSegmentIndex]];
 }
 
 -(void)questListReceived
 {
     questList = [NSMutableDictionary new];
+    questListOrder = @[];
     NSMutableArray* sectionCompleted = [NSMutableArray new];
     NSMutableArray* sectionAccepted = [NSMutableArray new];
     NSMutableArray* sectionNotAccepted = [NSMutableArray new];
@@ -94,11 +102,18 @@
         }
     }
     
-    [questList setObject:sectionNotAccepted forKey:NSLocalizedString(@"quest.notaccepted", nil)];
-    [questList setObject:sectionAccepted forKey:NSLocalizedString(@"quest.accepted", nil)];
-    [questList setObject:sectionCompleted forKey:NSLocalizedString(@"quest.completed", nil)];
-    
-    questListOrder = @[NSLocalizedString(@"quest.notaccepted", nil), NSLocalizedString(@"quest.accepted", nil), NSLocalizedString(@"quest.completed", nil)];
+    if (sectionNotAccepted.count > 0) {
+        [questList setObject:sectionNotAccepted forKey:NSLocalizedString(@"quest.notaccepted", nil)];
+        questListOrder = [questListOrder arrayByAddingObject:NSLocalizedString(@"quest.notaccepted", nil)];
+    }
+    if (sectionAccepted.count > 0) {
+        [questList setObject:sectionAccepted forKey:NSLocalizedString(@"quest.accepted", nil)];
+        questListOrder = [questListOrder arrayByAddingObject:NSLocalizedString(@"quest.accepted", nil)];
+    }
+    if (sectionCompleted.count > 0) {
+        [questList setObject:sectionCompleted forKey:NSLocalizedString(@"quest.completed", nil)];
+        questListOrder = [questListOrder arrayByAddingObject:NSLocalizedString(@"quest.completed", nil)];
+    }
     
     [questTableView reloadData];
     loadingView.hidden = YES;
@@ -110,6 +125,25 @@
     QuestSettingsViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:QUEST_SETTINGS_VIEW_CONTROLLER_ID];
     controller.delegate = self;
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (IBAction)onFilterButtonPressed:(UIBarButtonItem *)sender {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    if (statusView.frame.origin.y < (self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height)) {
+        CGRect rect = statusView.frame;
+        rect.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
+        statusView.frame = rect;
+    } else {
+        CGRect rect = statusView.frame;
+        rect.origin.y = 0;
+        statusView.frame = rect;
+    }
+}
+
+- (IBAction)onStatusFilterChange:(UISegmentedControl *)sender {
+    [self applyFilters];
 }
 
 #pragma mark UITableViewDataSource, UITableViewDelegate

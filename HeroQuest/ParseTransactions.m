@@ -113,7 +113,23 @@
             query = [PFQuery queryWithClassName:PARSE_QUESTS];
         }
         if ([status intValue] >= 0) {
-            [query whereKey:PARSE_QUESTS_COMPLETED equalTo:status];
+            switch ([status intValue]) {
+                case 0:
+                    [query whereKey:PARSE_QUESTS_ACCEPTED_BY notEqualTo:[PFUser currentUser]];
+                    [query whereKey:PARSE_QUESTS_COMPLETED equalTo:@NO];
+                    break;
+                case 1:
+                    [query whereKey:PARSE_QUESTS_ACCEPTED_BY equalTo:[PFUser currentUser]];
+                    [query whereKey:PARSE_QUESTS_COMPLETED equalTo:@NO];
+                    break;
+                case 2:
+                    [query whereKey:PARSE_QUESTS_ACCEPTED_BY equalTo:[PFUser currentUser]];
+                    [query whereKey:PARSE_QUESTS_COMPLETED equalTo:@YES];
+                    break;
+                    
+                default:
+                    break;
+            }
         }
         if (swOfSF) {
             [query whereKey:PARSE_QUESTS_LOCATION withinGeoBoxFromSouthwest:swOfSF toNortheast:neOfSF];

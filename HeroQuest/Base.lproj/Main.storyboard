@@ -559,18 +559,55 @@
                                     <constraint firstItem="4RR-ZA-l2J" firstAttribute="top" secondItem="wQz-k4-xQc" secondAttribute="top" constant="3" id="gtq-E8-vaT"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xha-JR-WBR" userLabel="View - filter">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vxI-PT-d9H">
+                                        <rect key="frame" x="20" y="5" width="280" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="1Rv-db-Ngv"/>
+                                            <constraint firstAttribute="width" constant="280" id="iQR-jR-8LO"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Available"/>
+                                            <segment title="Accepted"/>
+                                            <segment title="Completed"/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="0.82575843979999997" blue="0.4000342153" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="onStatusFilterChange:" destination="PIQ-tv-1vA" eventType="valueChanged" id="KjI-ha-Gn0"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.94242273430000001" blue="0.78551779430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="vxI-PT-d9H" secondAttribute="centerX" id="Baa-Kd-Fr2"/>
+                                    <constraint firstAttribute="centerY" secondItem="vxI-PT-d9H" secondAttribute="centerY" id="ke1-r2-zwS"/>
+                                    <constraint firstAttribute="height" constant="38" id="zY9-6i-TiD"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.94775561200000003" blue="0.83493878020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="xha-JR-WBR" secondAttribute="trailing" id="0XP-Tg-ybp"/>
                             <constraint firstItem="Xex-39-Pe5" firstAttribute="top" secondItem="YKe-Wy-2uQ" secondAttribute="bottom" id="4qh-K5-wKk"/>
                             <constraint firstItem="YKe-Wy-2uQ" firstAttribute="top" secondItem="vnq-lh-uMU" secondAttribute="top" id="Rs7-aG-1ro"/>
                             <constraint firstAttribute="trailing" secondItem="YKe-Wy-2uQ" secondAttribute="trailing" id="h3f-DK-wXl"/>
                             <constraint firstItem="YKe-Wy-2uQ" firstAttribute="leading" secondItem="vnq-lh-uMU" secondAttribute="leading" id="iNP-cE-A2F"/>
+                            <constraint firstItem="xha-JR-WBR" firstAttribute="top" secondItem="vnq-lh-uMU" secondAttribute="top" id="ivL-py-lsh"/>
                             <constraint firstAttribute="centerX" secondItem="wQz-k4-xQc" secondAttribute="centerX" id="jpU-Zt-Lz5"/>
+                            <constraint firstItem="xha-JR-WBR" firstAttribute="leading" secondItem="vnq-lh-uMU" secondAttribute="leading" id="p0F-Np-SfG"/>
                             <constraint firstAttribute="centerY" secondItem="wQz-k4-xQc" secondAttribute="centerY" id="qoh-Kt-YZ0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Quests" id="m8H-xA-Goy">
+                        <barButtonItem key="leftBarButtonItem" image="filter" id="lZ4-uC-MIZ">
+                            <connections>
+                                <action selector="onFilterButtonPressed:" destination="PIQ-tv-1vA" id="g2t-MR-Wce"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bt_settings" id="l62-7Z-jQZ">
                             <connections>
                                 <action selector="onSettingButtonPressed:" destination="PIQ-tv-1vA" id="8Ko-6s-3B1"/>
@@ -580,6 +617,8 @@
                     <connections>
                         <outlet property="loadingView" destination="wQz-k4-xQc" id="3iU-fh-PMY"/>
                         <outlet property="questTableView" destination="YKe-Wy-2uQ" id="Tmz-zs-egM"/>
+                        <outlet property="statusFilterSegmentControl" destination="vxI-PT-d9H" id="VSh-SC-cvV"/>
+                        <outlet property="statusView" destination="xha-JR-WBR" id="8T7-QZ-eJA"/>
                         <segue destination="wgf-an-VVx" kind="push" identifier="SegueFromQuestListViewControllerToDetailViewController" id="ZiI-tz-gBF"/>
                     </connections>
                 </viewController>
@@ -610,6 +649,7 @@
         <image name="bt_accept" width="20" height="20"/>
         <image name="bt_facebook" width="137" height="30"/>
         <image name="bt_settings" width="20" height="20"/>
+        <image name="filter" width="20" height="20"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

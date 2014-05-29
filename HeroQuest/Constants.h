@@ -33,6 +33,8 @@
 
 #define QUEST_LOADING_VIEW_CONTROLLER_ID            @"LoadingViewControllerID"
 
+#define QUEST_DETAIL_VIEW_CONTROLLER_UPDATE_LIST    @"QuestDetailViewControllerUpdateList"
+
 #define QUEST_ALIGNMENT_GOOD  0
 #define QUEST_ALIGNMENT_NEUTRAL  1
 #define QUEST_ALIGNMENT_EVIL  2
