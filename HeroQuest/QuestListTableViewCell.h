@@ -13,5 +13,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *questTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *questAuthorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *questRewardLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *questImageView;
+@property (strong, nonatomic) IBOutlet UIView *loadingQuestImageView;
 
 @end

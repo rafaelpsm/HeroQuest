@@ -128,18 +128,19 @@
 }
 
 - (IBAction)onFilterButtonPressed:(UIBarButtonItem *)sender {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
     
-    if (statusView.frame.origin.y < (self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height)) {
-        CGRect rect = statusView.frame;
-        rect.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
-        statusView.frame = rect;
-    } else {
-        CGRect rect = statusView.frame;
-        rect.origin.y = 0;
-        statusView.frame = rect;
-    }
+    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+        if (statusView.frame.origin.y < (self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height)) {
+            CGRect rect = statusView.frame;
+            rect.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
+            statusView.frame = rect;
+        } else {
+            CGRect rect = statusView.frame;
+            rect.origin.y = 0;
+            statusView.frame = rect;
+        }
+    }];
+    
 }
 
 - (IBAction)onStatusFilterChange:(UISegmentedControl *)sender {
@@ -197,6 +198,26 @@
     cell.questTitleLabel.text = quest[PARSE_QUESTS_NAME];
     NSLog(@"%@", (PFUser*)quest[PARSE_QUESTS_QUEST_GIVER]);
     cell.questAuthorLabel.text = [NSString stringWithFormat:POSTED_BY, user[PARSE_USER_NAME]];
+    
+    //Load image in background
+    NSLog(@"%f", cell.questImageView.frame.size.height);
+    UIView* loagingQuestImageView = [[UIView alloc] initWithFrame:cell.questImageView.frame];
+    loagingQuestImageView.backgroundColor = [UIColor whiteColor];
+    UIActivityIndicatorView* indicatorView = [UIActivityIndicatorView new];
+    indicatorView.color = [UIColor blackColor];
+    indicatorView.frame = [indicatorView alignmentRectForFrame:cell.questImageView.frame];
+    [indicatorView startAnimating];
+    [loagingQuestImageView addSubview:indicatorView];
+    [cell addSubview:loagingQuestImageView];
+    [cell bringSubviewToFront:loagingQuestImageView];
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
+    
+    dispatch_async(queue, ^{
+        //stopped here
+        
+        [loagingQuestImageView removeFromSuperview];
+    });
     
     return cell;
 }

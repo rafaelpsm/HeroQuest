@@ -13,8 +13,11 @@
 //FB APP ID - 1489594571258985
 //APP Secret - b4bc0d8b722150196a092fbff1f9b4e5
 
+#define ANIMATION_DURATION      0.3
+
 #define LOGGED_USER_ID          @"LOGGED_USER_ID"
 #define LOGGED_USER_NAME        @"LOGGED_USER_NAME"
+#define PROFILE_IMAGE_EMPTY     @"profilePicture"
 
 #pragma mark IDs
 

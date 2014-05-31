@@ -65,10 +65,10 @@
 
 - (void)setUpViewForOrientation
 {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
+    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+        [self addConstraints];
+    }];
     
-    [self addConstraints];
 }
 
 - (void)addConstraints
