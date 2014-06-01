@@ -21,6 +21,7 @@
     IBOutlet UISegmentedControl *statusFilterSegmentControl;
     IBOutlet UIView *statusView;
     
+    NSMutableDictionary* cachedImages;
     NSArray* questListTemp;
     NSArray* questListOrder;
     NSMutableDictionary* questList;
@@ -37,6 +38,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    cachedImages = [NSMutableDictionary new];
     
     userDefaults = [NSUserDefaults standardUserDefaults];
     parseTransactions = [ParseTransactions new];
@@ -55,8 +58,8 @@
         
         [self applyFilters];
         
-    } else if (currentOrientation != [[UIDevice currentDevice] orientation]) {
-        [questTableView reloadData];
+//    } else if (currentOrientation != [[UIDevice currentDevice] orientation]) {
+//        [questTableView reloadData];
     }
 }
 
@@ -68,7 +71,11 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     currentOrientation = [[UIDevice currentDevice] orientation];
-    [questTableView reloadData];
+    
+    NSArray* cells = [questTableView visibleCells];
+    for (QuestListTableViewCell* cell in cells) {
+        [self addConstraintsToCell:cell];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -186,40 +193,108 @@
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString* cellID = TABLE_VIEW_CELL_QUEST_LIST_LANDSCAPE;
-    if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationUnknown) {
-        cellID = TABLE_VIEW_CELL_QUEST_LIST_PORTRAIT;
-    }
+    NSString* cellID = TABLE_VIEW_CELL_QUEST_LIST_PORTRAIT;
+    
     QuestListTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     Quest* quest = [questList[questListOrder[indexPath.section]] objectAtIndex:indexPath.row];
     PFUser* user = quest[PARSE_QUESTS_QUEST_GIVER];
     [user fetchIfNeeded];
     
     cell.questTitleLabel.text = quest[PARSE_QUESTS_NAME];
-    NSLog(@"%@", (PFUser*)quest[PARSE_QUESTS_QUEST_GIVER]);
     cell.questAuthorLabel.text = [NSString stringWithFormat:POSTED_BY, user[PARSE_USER_NAME]];
     
     //Load image in background
-    NSLog(@"%f", cell.questImageView.frame.size.height);
-    UIView* loagingQuestImageView = [[UIView alloc] initWithFrame:cell.questImageView.frame];
-    loagingQuestImageView.backgroundColor = [UIColor whiteColor];
-    UIActivityIndicatorView* indicatorView = [UIActivityIndicatorView new];
-    indicatorView.color = [UIColor blackColor];
-    indicatorView.frame = [indicatorView alignmentRectForFrame:cell.questImageView.frame];
-    [indicatorView startAnimating];
-    [loagingQuestImageView addSubview:indicatorView];
-    [cell addSubview:loagingQuestImageView];
-    [cell bringSubviewToFront:loagingQuestImageView];
+    cell.questImageView.hidden = YES;
+    
+    [cell bringSubviewToFront:cell.loadingQuestImageView];
+    cell.questImageView.image = nil;
+    
+    [self addConstraintsToCell:cell];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
     
     dispatch_async(queue, ^{
-        //stopped here
+        NSURL* url = [NSURL URLWithString:quest[PARSE_QUESTS_LOCATION_IMAGE_URL]];
         
-        [loagingQuestImageView removeFromSuperview];
+        NSData* imageData = nil;
+        __block UIImage* cachedImage = nil;
+        if ([cachedImages objectForKey:quest.objectId]) {
+            cachedImage = [cachedImages objectForKey:quest.objectId];
+        } else {
+            imageData = [NSData dataWithContentsOfURL:url];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!cachedImage) {
+                cachedImage = [UIImage imageWithData:imageData];
+                
+                [cachedImages setObject:cachedImage forKey:quest.objectId];
+            }
+            cell.questImageView.image = cachedImage;
+            [cell bringSubviewToFront:cell.questImageView];
+            cell.questImageView.layer.cornerRadius = 15;
+            cell.questImageView.layer.masksToBounds = YES;
+            cell.questImageView.hidden = NO;
+        });
+        
     });
     
     return cell;
+}
+
+- (void)addConstraintsToCell:(QuestListTableViewCell*)cell
+{
+    [cell removeConstraints:cell.constraints];
+    
+    UILabel* titleLabel = cell.questTitleLabel;
+    UILabel* authorLabel = cell.questAuthorLabel;
+    UILabel* rewardLabel = cell.questRewardLabel;
+    UIImageView* imageView = cell.questImageView;
+    UIView* loadingImageView = cell.loadingQuestImageView;
+    
+    NSDictionary* views = NSDictionaryOfVariableBindings(titleLabel, authorLabel, rewardLabel, imageView, loadingImageView);
+    NSDictionary* metrics = @{@"spacing": @2, @"padding": @5, @"rightPadding": @15};
+    
+    NSArray* constraints;
+    if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationUnknown) {
+        
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[imageView(66)]-[titleLabel]-rightPadding-|" options:0 metrics:metrics  views:views];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[imageView(66)]-[authorLabel]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[imageView(66)]-[rewardLabel]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[loadingImageView(66)]-[titleLabel]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[loadingImageView(66)]-[authorLabel]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[loadingImageView(66)]-[rewardLabel]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-spacing-[imageView(66)]-spacing-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-spacing-[loadingImageView(66)]-spacing-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-spacing-[titleLabel]-spacing-[authorLabel]-spacing-[rewardLabel]-spacing-|" options:0 metrics:metrics  views:views]];
+        
+    } else {
+        
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[imageView(66)]-[titleLabel]-[rewardLabel(<=150)]-rightPadding-|" options:0 metrics:metrics  views:views];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[imageView(66)]-[authorLabel]-[rewardLabel(<=150)]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[loadingImageView(66)]-[titleLabel]-[rewardLabel(<=150)]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-spacing-[loadingImageView(66)]-[authorLabel]-[rewardLabel(<=150)]-rightPadding-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-spacing-[imageView(66)]-spacing-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-spacing-[loadingImageView(66)]-spacing-|" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-spacing-[titleLabel]-padding-[authorLabel(21)]" options:0 metrics:metrics  views:views]];
+        constraints = [constraints arrayByAddingObjectsFromArray:
+                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-spacing-[rewardLabel]-spacing-|" options:0 metrics:metrics  views:views]];
+        
+    }
+    [cell addConstraints:constraints];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

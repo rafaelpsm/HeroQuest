@@ -463,82 +463,46 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reward: 10000 Gold: 10000 XP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riR-00-uIY">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reward: 10000 Gold: 10000 XP" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="219" translatesAutoresizingMaskIntoConstraints="NO" id="riR-00-uIY">
                                                     <rect key="frame" x="81" y="46" width="219" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4n-xKB">
-                                                    <rect key="frame" x="3" y="0.0" width="73" height="67"/>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLW-e2-6Ie">
+                                                    <rect key="frame" x="3" y="0.0" width="67" height="67"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="N21-RN-rqP">
+                                                            <rect key="frame" x="23" y="24" width="20" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="20" id="Qt8-T4-B9w"/>
+                                                                <constraint firstAttribute="height" constant="20" id="b2g-fE-snn"/>
+                                                            </constraints>
+                                                        </activityIndicatorView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="centerX" secondItem="N21-RN-rqP" secondAttribute="centerX" id="8Rb-F0-5d7"/>
+                                                        <constraint firstAttribute="centerY" secondItem="N21-RN-rqP" secondAttribute="centerY" id="GYs-Yn-1LE"/>
+                                                        <constraint firstAttribute="height" constant="67" id="W73-9N-0oq"/>
+                                                        <constraint firstAttribute="width" constant="67" id="cxr-Fa-vEH"/>
+                                                    </constraints>
+                                                </view>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4n-xKB">
+                                                    <rect key="frame" x="3" y="0.0" width="67" height="67"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                         <connections>
+                                            <outlet property="loadingQuestImageView" destination="bLW-e2-6Ie" id="2iq-Jr-Dp7"/>
                                             <outlet property="questAuthorLabel" destination="dGT-X9-CEK" id="KzF-G9-q7z"/>
                                             <outlet property="questImageView" destination="4Sw-4n-xKB" id="uhA-Nj-Oe4"/>
                                             <outlet property="questRewardLabel" destination="riR-00-uIY" id="zNX-Kb-gs9"/>
                                             <outlet property="questTitleLabel" destination="EcI-bp-7hb" id="dKz-XN-FUF"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="QuestListTableViewCellID_landscape" id="raR-mI-BNV" customClass="QuestListTableViewCell">
-                                        <rect key="frame" x="0.0" y="156" width="320" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="raR-mI-BNV" id="WGa-Lg-3Io">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="69"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Quest Name Goes Here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ywu-zO-cd3">
-                                                    <rect key="frame" x="11" y="9" width="158" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="eJq-Ui-EQn"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Posted by: Billy Joe Bob" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHQ-6x-Ozh">
-                                                    <rect key="frame" x="11" y="38" width="158" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="zHC-B4-lhT"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Reward: 10000 Gold: 10000 XP" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="110" translatesAutoresizingMaskIntoConstraints="NO" id="Z2o-Ru-KS3">
-                                                    <rect key="frame" x="177" y="9" width="110" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="200" id="u2R-MN-4BG"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Z2o-Ru-KS3" firstAttribute="leading" secondItem="Ywu-zO-cd3" secondAttribute="trailing" constant="8" id="2kB-SD-srC"/>
-                                                <constraint firstAttribute="bottom" secondItem="Ywu-zO-cd3" secondAttribute="bottom" constant="30" id="6Yj-0C-dtW"/>
-                                                <constraint firstItem="FHQ-6x-Ozh" firstAttribute="leading" secondItem="WGa-Lg-3Io" secondAttribute="leading" constant="11" id="7YC-8t-atE"/>
-                                                <constraint firstAttribute="trailing" secondItem="Z2o-Ru-KS3" secondAttribute="trailing" id="EN7-OW-B3c"/>
-                                                <constraint firstItem="Z2o-Ru-KS3" firstAttribute="leading" secondItem="FHQ-6x-Ozh" secondAttribute="trailing" constant="8" id="F4Y-eK-L7C"/>
-                                                <constraint firstItem="Z2o-Ru-KS3" firstAttribute="top" secondItem="WGa-Lg-3Io" secondAttribute="top" constant="9" id="JaL-q6-zZI"/>
-                                                <constraint firstItem="Z2o-Ru-KS3" firstAttribute="leading" secondItem="FHQ-6x-Ozh" secondAttribute="trailing" constant="8" id="NYK-jp-v64"/>
-                                                <constraint firstItem="FHQ-6x-Ozh" firstAttribute="top" secondItem="WGa-Lg-3Io" secondAttribute="top" constant="38" id="O8i-4q-ZpK"/>
-                                                <constraint firstAttribute="bottom" secondItem="FHQ-6x-Ozh" secondAttribute="bottom" constant="10" id="ZNW-kn-ZDS"/>
-                                                <constraint firstItem="Ywu-zO-cd3" firstAttribute="top" secondItem="WGa-Lg-3Io" secondAttribute="top" constant="9" id="aJk-9L-iFP"/>
-                                                <constraint firstAttribute="bottom" secondItem="Z2o-Ru-KS3" secondAttribute="bottom" constant="10" id="axZ-2p-AjX"/>
-                                                <constraint firstItem="Ywu-zO-cd3" firstAttribute="leading" secondItem="WGa-Lg-3Io" secondAttribute="leading" constant="11" id="iys-qA-Gwg"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="questAuthorLabel" destination="FHQ-6x-Ozh" id="IT3-0p-Gzz"/>
-                                            <outlet property="questRewardLabel" destination="Z2o-Ru-KS3" id="AZN-PQ-fy8"/>
-                                            <outlet property="questTitleLabel" destination="Ywu-zO-cd3" id="Lcs-k1-wkl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
