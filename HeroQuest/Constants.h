@@ -13,11 +13,13 @@
 //FB APP ID - 1489594571258985
 //APP Secret - b4bc0d8b722150196a092fbff1f9b4e5
 
-#define ANIMATION_DURATION      0.3
+#define ANIMATION_DURATION      0.5
+#define ANNOTATION_IMAGE_LOADED    @"ANNOTATION_IMAGE_LOADED"
 
 #define LOGGED_USER_ID          @"LOGGED_USER_ID"
 #define LOGGED_USER_NAME        @"LOGGED_USER_NAME"
 #define PROFILE_IMAGE_EMPTY     @"profilePicture"
+#define NO_IMAGE_AVAILABLE      @"no-available-image"
 
 #pragma mark IDs
 
@@ -54,17 +56,7 @@
 #define SEGUE_FROM_SIGNUP_TO_QUEST_LIST             @"SegueSignupViewControllerToQuestListViewController"
 
 
-
-
-#define TITLE @"title"
-#define GIVER @"giver"
-#define GIVER_LOCATION @"giverLocation"
-#define ALIGNMENT @"alignment"
-#define DESCRIPTION @"description"
-#define LOCATION @"location"
-
 #define POSTED_BY  @"Posted by: %@"
-
 
 #define PARSE_USER              @"User"
 #define PARSE_USER_OBJECT_ID    @"objectId"

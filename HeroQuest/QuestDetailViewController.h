@@ -12,5 +12,6 @@
 @interface QuestDetailViewController : UIViewController
 
 @property (strong, nonatomic) Quest* quest;
+@property (strong, nonatomic) UIImage* questCachedImage;
 
 @end

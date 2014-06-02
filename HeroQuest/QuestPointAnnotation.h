@@ -16,5 +16,6 @@ typedef enum : NSUInteger {
 @interface QuestPointAnnotation : MKPointAnnotation
 
 @property (nonatomic) QuestPointAnnotationType pointType;
+@property (nonatomic) UIImage* image;
 
 @end

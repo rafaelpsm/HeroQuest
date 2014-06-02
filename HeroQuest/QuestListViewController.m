@@ -58,8 +58,6 @@
         
         [self applyFilters];
         
-//    } else if (currentOrientation != [[UIDevice currentDevice] orientation]) {
-//        [questTableView reloadData];
     }
 }
 
@@ -168,16 +166,32 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 40;
+    return 60;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 35)];
+    CGFloat height = [self tableView:tableView heightForHeaderInSection:section];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, height)];
+    UIImageView* imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 2, 56, 56)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.layer.cornerRadius = 29;
+    imageView.layer.masksToBounds = YES;
+    
+    if ([PFUser currentUser][PARSE_USER_CUSTOM_USER_IMAGE]) {
+        [(PFFile*)[PFUser currentUser][PARSE_USER_CUSTOM_USER_IMAGE] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            imageView.image = [UIImage imageWithData:data];
+        }];
+    } else {
+        imageView.image = [UIImage imageNamed:NO_IMAGE_AVAILABLE];
+    }
+    
+    [view addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(70, 5, tableView.frame.size.width - 100, 35)];
     [label setFont:[UIFont boldSystemFontOfSize:12]];
-    NSString *string = [self tableView:tableView titleForHeaderInSection:section];
-    label.text = string;
+//    NSString *string = [self tableView:tableView titleForHeaderInSection:section];
+    label.text = [PFUser currentUser][PARSE_USER_NAME];
     label.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.75];
     
     [view addSubview:label];
@@ -205,38 +219,48 @@
     
     //Load image in background
     cell.questImageView.hidden = YES;
+    cell.questImageView.alpha = 0;
     
     [cell bringSubviewToFront:cell.loadingQuestImageView];
     cell.questImageView.image = nil;
     
     [self addConstraintsToCell:cell];
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
-    
-    dispatch_async(queue, ^{
-        NSURL* url = [NSURL URLWithString:quest[PARSE_QUESTS_LOCATION_IMAGE_URL]];
+    if (quest[PARSE_QUESTS_LOCATION_IMAGE_URL]) {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
         
-        NSData* imageData = nil;
-        __block UIImage* cachedImage = nil;
-        if ([cachedImages objectForKey:quest.objectId]) {
-            cachedImage = [cachedImages objectForKey:quest.objectId];
-        } else {
-            imageData = [NSData dataWithContentsOfURL:url];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (!cachedImage) {
-                cachedImage = [UIImage imageWithData:imageData];
-                
-                [cachedImages setObject:cachedImage forKey:quest.objectId];
+        dispatch_async(queue, ^{
+            NSURL* url = [NSURL URLWithString:quest[PARSE_QUESTS_LOCATION_IMAGE_URL]];
+            
+            NSData* imageData = nil;
+            __block UIImage* cachedImage = nil;
+            if ([cachedImages objectForKey:quest.objectId]) {
+                cachedImage = [cachedImages objectForKey:quest.objectId];
+            } else {
+                imageData = [NSData dataWithContentsOfURL:url];
             }
-            cell.questImageView.image = cachedImage;
-            [cell bringSubviewToFront:cell.questImageView];
-            cell.questImageView.layer.cornerRadius = 15;
-            cell.questImageView.layer.masksToBounds = YES;
-            cell.questImageView.hidden = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+                    if (!cachedImage) {
+                        cachedImage = [UIImage imageWithData:imageData];
+                        
+                        [cachedImages setObject:cachedImage forKey:quest.objectId];
+                    }
+                    cell.questImageView.image = cachedImage;
+                    [cell bringSubviewToFront:cell.questImageView];
+                    cell.questImageView.layer.cornerRadius = 15;
+                    cell.questImageView.layer.masksToBounds = YES;
+                    cell.questImageView.hidden = NO;
+                    cell.questImageView.alpha = 1;
+                }];
+                
+            });
+            
         });
-        
-    });
+    } else {
+        cell.imageView.image = [UIImage imageNamed:NO_IMAGE_AVAILABLE];
+    }
     
     return cell;
 }
@@ -327,6 +351,7 @@
 {
     QuestDetailViewController* vc = segue.destinationViewController;
     vc.quest = [questList[questListOrder[selectedIndexPath.section]] objectAtIndex:selectedIndexPath.row];
+    vc.questCachedImage = cachedImages[vc.quest.objectId];
 }
 
 
